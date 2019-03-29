@@ -1,36 +1,11 @@
 from __future__ import print_function
-
-import csv
-import numpy as np
 import random
 import matplotlib.pyplot as plt
 import keras
 from keras import optimizers
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
-
-
-data_folder = 'C:/Users/Quentin.Meteier/switchdrive/PatternRecognition/data/mnist-csv/'
-
-def get_training_set():
-    with open(data_folder+'mnist_train.csv', 'r') as csvfile:
-        lines = csv.reader(csvfile)
-        dataset = list(lines)
-        matrix = np.array(dataset, dtype=int)
-        samples = matrix[:, 1:]
-        labels = matrix[:, 0]
-
-    return labels, samples
-
-def get_test_set():
-    with open(data_folder+'mnist_test.csv', 'r') as csvfile:
-        lines = csv.reader(csvfile)
-        dataset = list(lines)
-        matrix = np.array(dataset, dtype=int)
-        samples = matrix[:, 1:]
-        labels = matrix[:, 0]
-
-    return labels, samples
+from util.dataset import get_training_set, get_test_set
 
 
 batch_size = 128
