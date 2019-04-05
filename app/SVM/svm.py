@@ -11,8 +11,12 @@ grid_search_params = [
     {"kernel": ["rbf"], "C": [0.1, 1, 5], "gamma": [0.001, 0.01, 0.05]}
 ]
 
-# feature_extraction_mods = ['plain', 'hog']
-feature_extraction_mods = ['hog']
+optimal_params = {
+    "kernel": "rbf", "C": 1, "gamma": 0.5
+}
+
+feature_extraction_mods = ['plain', 'hog']
+# feature_extraction_mods = ['hog']
 
 for feature_extraction_mod in feature_extraction_mods:
     if feature_extraction_mod == 'hog':
