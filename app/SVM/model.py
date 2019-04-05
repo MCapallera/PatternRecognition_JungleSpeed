@@ -12,6 +12,7 @@ def test_svm(grid_search_param, train:Data, test:Data):
     utils.parallel_backend('threading')
 
     # 10-fold cross validation, use some threads as each fold and each parameter set can be train in parallel
+    # use the default score function which returns the mean accuracy on the given test data and labels
     clf = GridSearchCV(model, grid_search_param, cv=10, n_jobs=8, verbose=3)
     clf.fit(train.x, train.y)
 

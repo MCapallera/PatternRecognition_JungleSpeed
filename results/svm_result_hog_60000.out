@@ -30,75 +30,75 @@ Fitting 4 folds for each of 12 candidates, totalling 48 fits
 [CV] C=1, gamma=0.001, kernel=rbf ....................................
 [CV] C=1, gamma=0.01, kernel=rbf .....................................
 [CV] C=1, gamma=0.01, kernel=rbf .....................................
-[CV] ... C=0.1, kernel=linear, score=0.8647819709294573, total= 9.9min
+[GV] C=0.1, kernel=linear, score=0.8647819709294573, total= 9.9min
 [CV] C=1, gamma=0.01, kernel=rbf .....................................
-[CV] ... C=0.1, kernel=linear, score=0.8675108297234255, total=10.0min
+[GV] C=0.1, kernel=linear, score=0.8675108297234255, total=10.0min
 [CV] C=1, gamma=0.01, kernel=rbf .....................................
-[CV] ... C=0.1, kernel=linear, score=0.8754251417139046, total=10.4min
+[GV] C=0.1, kernel=linear, score=0.8754251417139046, total=10.4min
 [CV] C=1, gamma=0.05, kernel=rbf .....................................
-[CV] ... C=0.1, kernel=linear, score=0.8715504599386749, total=10.4min
+[GV] C=0.1, kernel=linear, score=0.8715504599386749, total=10.4min
 [CV] C=1, gamma=0.05, kernel=rbf .....................................
-[CV]  C=1, gamma=0.01, kernel=rbf, score=0.8946351216261246, total=14.3min
+[CV] C=1, gamma=0.01, kernel=rbf, score=0.8946351216261246, total=14.3min
 [CV] C=1, gamma=0.05, kernel=rbf .....................................
-[CV]  C=1, gamma=0.01, kernel=rbf, score=0.8976136515131315, total=14.9min
+[CV] C=1, gamma=0.01, kernel=rbf, score=0.8976136515131315, total=14.9min
 [CV] C=1, gamma=0.05, kernel=rbf .....................................
 [Parallel(n_jobs=30)]: Done   6 out of  48 | elapsed: 16.0min remaining: 112.1min
-[CV] ..... C=1, kernel=linear, score=0.8647819709294573, total=17.3min
+[GV] C=1, kernel=linear, score=0.8647819709294573, total=17.3min
 [CV] C=5, gamma=0.001, kernel=rbf ....................................
-[CV] ..... C=1, kernel=linear, score=0.8686437854048651, total=17.5min
+[GV] C=1, kernel=linear, score=0.8686437854048651, total=17.5min
 [CV] C=5, gamma=0.001, kernel=rbf ....................................
-[CV] ..... C=1, kernel=linear, score=0.8712838288228236, total=17.8min
+[GV] C=1, kernel=linear, score=0.8712838288228236, total=17.8min
 [CV] C=5, gamma=0.001, kernel=rbf ....................................
-[CV] ..... C=1, kernel=linear, score=0.8759586528842948, total=18.0min
+[GV] C=1, kernel=linear, score=0.8759586528842948, total=18.0min
 [CV] C=5, gamma=0.001, kernel=rbf ....................................
-[CV]  C=1, gamma=0.01, kernel=rbf, score=0.8903187091612215, total=13.0min
+[CV] C=1, gamma=0.01, kernel=rbf, score=0.8903187091612215, total=13.0min
 [CV] C=5, gamma=0.01, kernel=rbf .....................................
-[CV]  C=1, gamma=0.01, kernel=rbf, score=0.9000333444481494, total=14.1min
+[CV] C=1, gamma=0.01, kernel=rbf, score=0.9000333444481494, total=14.1min
 [CV] C=5, gamma=0.01, kernel=rbf .....................................
-[CV]  C=1, gamma=0.001, kernel=rbf, score=0.8604465178273909, total=30.9min
+[CV] C=1, gamma=0.001, kernel=rbf, score=0.8604465178273909, total=30.9min
 [CV] C=5, gamma=0.01, kernel=rbf .....................................
-[CV]  C=1, gamma=0.001, kernel=rbf, score=0.8579810641418856, total=31.2min
+[CV] C=1, gamma=0.001, kernel=rbf, score=0.8579810641418856, total=31.2min
 [CV] C=5, gamma=0.01, kernel=rbf .....................................
-[CV]  C=1, gamma=0.05, kernel=rbf, score=0.9072975674775074, total=20.7min
+[CV] C=1, gamma=0.05, kernel=rbf, score=0.9072975674775074, total=20.7min
 [CV] C=5, gamma=0.05, kernel=rbf .....................................
-[CV]  C=1, gamma=0.05, kernel=rbf, score=0.9106785761898414, total=20.8min
+[CV] C=1, gamma=0.05, kernel=rbf, score=0.9106785761898414, total=20.8min
 [CV] C=5, gamma=0.05, kernel=rbf .....................................
-[CV]  C=1, gamma=0.001, kernel=rbf, score=0.8644847353686175, total=31.5min
+[CV] C=1, gamma=0.001, kernel=rbf, score=0.8644847353686175, total=31.5min
 [CV] C=5, gamma=0.05, kernel=rbf .....................................
-[CV]  C=1, gamma=0.001, kernel=rbf, score=0.8712237412470824, total=31.7min
+[CV] C=1, gamma=0.001, kernel=rbf, score=0.8712237412470824, total=31.7min
 [CV] C=5, gamma=0.05, kernel=rbf .....................................
-[CV]  C=5, gamma=0.01, kernel=rbf, score=0.9055648117294235, total= 9.0min
-[CV]  C=5, gamma=0.01, kernel=rbf, score=0.9086788428209572, total= 9.5min
-[CV]  C=5, gamma=0.001, kernel=rbf, score=0.8661154820642752, total=16.8min
-[CV]  C=5, gamma=0.001, kernel=rbf, score=0.8742167710971871, total=17.2min
-[CV]  C=5, gamma=0.001, kernel=rbf, score=0.8723092302565811, total=17.4min
+[CV] C=5, gamma=0.01, kernel=rbf, score=0.9055648117294235, total= 9.0min
+[CV] C=5, gamma=0.01, kernel=rbf, score=0.9086788428209572, total= 9.5min
+[CV] C=5, gamma=0.001, kernel=rbf, score=0.8661154820642752, total=16.8min
+[CV] C=5, gamma=0.001, kernel=rbf, score=0.8742167710971871, total=17.2min
+[CV] C=5, gamma=0.001, kernel=rbf, score=0.8723092302565811, total=17.4min
 [Parallel(n_jobs=30)]: Done  23 out of  48 | elapsed: 36.6min remaining: 39.8min
-[CV]  C=5, gamma=0.001, kernel=rbf, score=0.8797599199733245, total=17.7min
-[CV]  C=1, gamma=0.05, kernel=rbf, score=0.9060541405520736, total=21.2min
-[CV]  C=0.1, gamma=0.01, kernel=rbf, score=0.8679823976530204, total=36.1min
-[CV]  C=0.1, gamma=0.01, kernel=rbf, score=0.8722425858047318, total=36.7min
-[CV]  C=0.1, gamma=0.01, kernel=rbf, score=0.8812270756918973, total=37.2min
-[CV]  C=0.1, gamma=0.01, kernel=rbf, score=0.8752832955605919, total=37.2min
-[CV] ...... C=5, kernel=linear, score=0.865582077610348, total=38.2min
-[CV] ..... C=5, kernel=linear, score=0.8689103632122626, total=38.3min
-[CV] ..... C=5, kernel=linear, score=0.8713504866017864, total=39.0min
-[CV]  C=1, gamma=0.05, kernel=rbf, score=0.9135711903967989, total=22.5min
-[CV] ..... C=5, kernel=linear, score=0.8757585861953985, total=39.6min
-[CV]  C=5, gamma=0.01, kernel=rbf, score=0.9023203093745833, total= 8.4min
-[CV]  C=5, gamma=0.01, kernel=rbf, score=0.9094364788262754, total= 8.6min
-[CV]  C=0.1, gamma=0.05, kernel=rbf, score=0.8867849046539539, total=41.9min
-[CV]  C=0.1, gamma=0.05, kernel=rbf, score=0.8903032322559147, total=41.9min
-[CV]  C=0.1, gamma=0.05, kernel=rbf, score=0.8944981660553518, total=42.0min
-[CV]  C=0.1, gamma=0.05, kernel=rbf, score=0.8953472870283962, total=42.1min
+[CV] C=5, gamma=0.001, kernel=rbf, score=0.8797599199733245, total=17.7min
+[CV] C=1, gamma=0.05, kernel=rbf, score=0.9060541405520736, total=21.2min
+[CV] C=0.1, gamma=0.01, kernel=rbf, score=0.8679823976530204, total=36.1min
+[CV] C=0.1, gamma=0.01, kernel=rbf, score=0.8722425858047318, total=36.7min
+[CV] C=0.1, gamma=0.01, kernel=rbf, score=0.8812270756918973, total=37.2min
+[CV] C=0.1, gamma=0.01, kernel=rbf, score=0.8752832955605919, total=37.2min
+[GV] C=5, kernel=linear, score=0.865582077610348, total=38.2min
+[GV] C=5, kernel=linear, score=0.8689103632122626, total=38.3min
+[GV] C=5, kernel=linear, score=0.8713504866017864, total=39.0min
+[CV] C=1, gamma=0.05, kernel=rbf, score=0.9135711903967989, total=22.5min
+[GV] C=5, kernel=linear, score=0.8757585861953985, total=39.6min
+[CV] C=5, gamma=0.01, kernel=rbf, score=0.9023203093745833, total= 8.4min
+[CV] C=5, gamma=0.01, kernel=rbf, score=0.9094364788262754, total= 8.6min
+[CV] C=0.1, gamma=0.05, kernel=rbf, score=0.8867849046539539, total=41.9min
+[CV] C=0.1, gamma=0.05, kernel=rbf, score=0.8903032322559147, total=41.9min
+[CV] C=0.1, gamma=0.05, kernel=rbf, score=0.8944981660553518, total=42.0min
+[CV] C=0.1, gamma=0.05, kernel=rbf, score=0.8953472870283962, total=42.1min
 [Parallel(n_jobs=30)]: Done  40 out of  48 | elapsed: 43.6min remaining:  8.7min
-[CV]  C=5, gamma=0.05, kernel=rbf, score=0.9090121317157712, total=11.9min
-[CV]  C=5, gamma=0.05, kernel=rbf, score=0.9034537938391786, total=12.0min
-[CV]  C=5, gamma=0.05, kernel=rbf, score=0.9058980339886704, total=12.2min
-[CV]  C=5, gamma=0.05, kernel=rbf, score=0.9122374124708236, total=12.0min
-[CV]  C=0.1, gamma=0.001, kernel=rbf, score=0.8321109481264168, total=49.2min
-[CV]  C=0.1, gamma=0.001, kernel=rbf, score=0.8317227590803066, total=49.3min
-[CV]  C=0.1, gamma=0.001, kernel=rbf, score=0.8454818272757586, total=49.4min
-[CV]  C=0.1, gamma=0.001, kernel=rbf, score=0.8398213571523797, total=49.4min
+[CV] C=5, gamma=0.05, kernel=rbf, score=0.9090121317157712, total=11.9min
+[CV] C=5, gamma=0.05, kernel=rbf, score=0.9034537938391786, total=12.0min
+[CV] C=5, gamma=0.05, kernel=rbf, score=0.9058980339886704, total=12.2min
+[CV] C=5, gamma=0.05, kernel=rbf, score=0.9122374124708236, total=12.0min
+[CV] C=0.1, gamma=0.001, kernel=rbf, score=0.8321109481264168, total=49.2min
+[CV] C=0.1, gamma=0.001, kernel=rbf, score=0.8317227590803066, total=49.3min
+[CV] C=0.1, gamma=0.001, kernel=rbf, score=0.8454818272757586, total=49.4min
+[CV] C=0.1, gamma=0.001, kernel=rbf, score=0.8398213571523797, total=49.4min
 [Parallel(n_jobs=30)]: Done  48 out of  48 | elapsed: 51.1min finished
 
 Best parameters set:
