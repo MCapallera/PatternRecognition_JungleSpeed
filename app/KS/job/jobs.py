@@ -1,5 +1,6 @@
 import logging
 from KS.dtw import DtwTrain, DtwValidate
+from KS.image.features import ImageFeaturesJob
 from KS.image.preprocessing import ImagePreProcessing
 from KS.job.dispatchdata import DispatchData
 from config import get_config_for
@@ -43,6 +44,11 @@ class Jobs:
         pass
 
 
-job_registry = {'ImagePreProcessing': ImagePreProcessing, 'DtwTrain': DtwTrain, 'DtwValidate': DtwValidate}  # Dict[str, object]
+job_registry = {
+    'ImagePreProcessing': ImagePreProcessing
+    , 'DtwTrain': DtwTrain
+    , 'DtwValidate': DtwValidate
+    , 'ImageFeatures': ImageFeaturesJob
+}  # Dict[str, object]
 
 

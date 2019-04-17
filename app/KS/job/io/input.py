@@ -29,7 +29,8 @@ class InputDir(Input):
             if isfile(path):
                 params['input_path'] = path
                 params['filename'] = filename
-                params['output_path'] = join(params['output_directory'], filename)
+                if 'output_directory' in params:
+                    params['output_path'] = join(params['output_directory'], filename)
                 yield params
 
 

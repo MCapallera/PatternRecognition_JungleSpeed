@@ -1,4 +1,5 @@
 import argparse, logging, pathlib, util.path, datetime
+from logging import Formatter
 from logging.handlers import TimedRotatingFileHandler
 from config import get_config_for, config
 
@@ -34,7 +35,7 @@ class Bootstrap:
 
         if main_config.getint('log_to_file', 0) == 1:
             logger.propagate = False
-            log_dir = './results/{}/{}/'.format(self.name, datetime.datetime.now().strftime('%Y%m%d-%H%M'))
+            log_dir = '../results/{}/{}/'.format(self.name, datetime.datetime.now().strftime('%Y%m%d-%H%M'))
             file_path = log_dir + 'main.log'
             util.path.ensure_dir(log_dir)
 
@@ -44,5 +45,6 @@ class Bootstrap:
                 , encoding='utf-8'
             )
 
+            file_handler.setFormatter(Formatter('%(asctime)s %(levelname)-8s %(name)s %(message)s', '%Y-%m-%d %H:%M:%S'))
             file_handler.setLevel(log_level)
             logger.addHandler(file_handler)

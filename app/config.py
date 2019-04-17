@@ -22,7 +22,7 @@ class ConfigContainer:
 
     def getlist_int(self, key, fallback):
         value = config.get(self.name, key, fallback=fallback)
-        return numpy.asarray((filter(None, value.split(','))), dtype=int)
+        return numpy.asarray(list(filter(None, value.split(','))), dtype=int)
 
     def as_dict(self):
         return dict(config.items(self.name))
