@@ -17,8 +17,9 @@ Then you can call the keyword spotting app `ks.py` with your profile as paramete
 name=base
 log_to_file=1
 ```
-@main is the config name, currently not realy used
-@log_to_file if 1, the logging output is directed to result/ks/{datetime}/main.log
+`name` is the config name, currently not realy used
+
+`log_to_file` if 1, the logging output is directed to result/ks/{datetime}/main.log
 
 ####jobs
 ```buildoutcfg
@@ -26,7 +27,7 @@ log_to_file=1
 items=crop,featureSelection,train,validate
 
 ```
-@items you can define the jobs in the corresponding order where they should be executed you need to use the config names of the jobs
+`items` you can define the jobs in the corresponding order where they should be executed you need to use the config names of the jobs
 ####job
 every job is prefixed by `job_` followed by his name/key. If you don't define the property `type`, the fallback job `ImagePreProcessing` is taken
 ````buildoutcfg
@@ -39,9 +40,9 @@ apply_polygon_mask=1
 For the image `ImagePreProcessing` you can choose the pre processing function by setting the `function` property
 For the `crop` function you need to define some additional properties.
 
-@svg_dir path to the svg locations with the polygons
+`svg_dir path` to the svg locations with the polygons
 
-@apply_polygon_mask if 1, all pixels out of the polygon are set to the mean background color define by the yen threshold
+`apply_polygon_mask` if 1, all pixels out of the polygon are set to the mean background color define by the yen threshold
 
 
 
