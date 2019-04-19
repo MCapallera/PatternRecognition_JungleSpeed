@@ -11,6 +11,7 @@ Create a profile under data/ks/profile (have a look at base.cfg).
 Then you can call the keyword spotting app `ks.py` with your profile as parameter, e.g. for running the app with the cluster config you can call it as follow `python3.7 ks.py cluster`
  
 #how to configure
+
 ##main 
 ```buildoutcfg
 [main]
