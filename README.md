@@ -5,13 +5,13 @@ The report folder contains the reports for the exercices, one report per task wi
 
 The results folder contains the results of each task
 
-## Keyword spotting task
+# Keyword spotting task
 Create a profile under data/ks/profile (have a look at base.cfg).
 
 Then you can call the keyword spotting app `ks.py` with your profile as parameter, e.g. for running the app with the cluster config you can call it as follow `python3.7 ks.py cluster`
  
-###how to configure
-####main 
+#how to configure
+##main 
 ```buildoutcfg
 [main]
 name=base
@@ -21,14 +21,14 @@ log_to_file=1
 
 `log_to_file` if 1, the logging output is directed to result/ks/{datetime}/main.log
 
-####jobs
+##jobs
 ```buildoutcfg
 [jobs]
 items=crop,featureSelection,train,validate
 
 ```
 `items` you can define the jobs in the corresponding order where they should be executed you need to use the config names of the jobs
-####job
+##job
 every job is prefixed by `job_` followed by his name/key. If you don't define the property `type`, the fallback job `ImagePreProcessing` is taken
 ````buildoutcfg
 [job_crop]
