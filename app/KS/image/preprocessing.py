@@ -8,6 +8,7 @@ from skimage.io import imread, imsave
 from skimage import filters
 from skimage.measure import moments, moments_central
 
+from KS.image.helpers import get_background_color
 from KS.job.io.input import InputDir
 from KS.job.io.output import OutputDir
 from KS.job.job import FnJob
@@ -60,13 +61,13 @@ def crop(params):
             coordinates.append((line.start.real, line.start.imag))
             coordinates.append((line.end.real, line.end.imag))
 
-        mask = Image.new('L', (img.shape[1], img.shape[0]), 0)
-        ImageDraw.Draw(mask).polygon(coordinates, outline=1, fill=1)
-
         cropped = numpy.copy(img)
-        cropped[numpy.asarray(mask) == 0] = 255
-        cropped = Image.fromarray(cropped)
+        if int(params['apply_polygon_mask']) == 1:
+            mask = Image.new('L', (img.shape[1], img.shape[0]), 0)
+            ImageDraw.Draw(mask).polygon(coordinates, outline=1, fill=1)
+            cropped[numpy.asarray(mask) == 0] = get_background_color(img)
 
+        cropped = Image.fromarray(cropped)
         min_x, max_x, min_y, max_y = path.bbox()
         cropped = cropped.crop((int(min_x), int(min_y), int(max_x), int(max_y)))
         path = join(params['output_directory'], '{}.png'.format(attributes[word_index]['id']))
