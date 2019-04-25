@@ -27,9 +27,12 @@ class Cluster:
                     , window_type='sakoechiba', window_size=window_size
                 )
                 estimated_cost_barrier = max(estimated_cost_barrier, numpy.sum(result.get_warping_path()))
-                logger.info('alignment path found for {} to {}'.format(features_set[0][0], features_set[1][0]))
+                # logger.info('alignment path found for {} and {}'.format(features_set[0][0], features_set[1][0]))
             except ValueError:
-                logger.error('no alignment path for {} to {}'.format(features_set[0][0], features_set[1][0]))
+                logger.error('no alignment path for {} and {}'.format(features_set[0][0], features_set[1][0]))
+            except Exception as e:
+                logger.error('no alignment path for {} and {}'.format(features_set[0][0], features_set[1][0]))
+                logger.error(e)
 
         self.estimated_cost_barrier = estimated_cost_barrier
 

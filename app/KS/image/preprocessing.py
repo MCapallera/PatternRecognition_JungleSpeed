@@ -31,7 +31,7 @@ def deskew(params):
     ocenter = numpy.array(img.shape) / 2.0
     offset = c - numpy.dot(affine, ocenter)
     img = affine_transform(img, affine, offset=offset)
-    imsave(params['output_directory'], img)
+    imsave(params['output_path'], img)
 
 
 def crop_white(params):
@@ -40,6 +40,8 @@ def crop_white(params):
     diff = ImageChops.difference(image, bg)
     bbox = diff.getbbox()
     if bbox:
+        if params['keep_height']:
+            bbox = (bbox[0], 0, bbox[2], image.height)
         image = image.crop(bbox)
         image.save(params['output_path'])
 
@@ -85,11 +87,16 @@ def binarize(params):
 
     thresh_func = getattr(filters.thresholding, "threshold_{}".format(method))
     thresh = thresh_func(img, **dynamic_cast(subset(params, method + '_')))
-    imsave(params['output_path'], numpy.where(img > thresh, 255, 0))
+
+    if params['keep_foreground'] == '1':
+        img[img > thresh] = 255
+        imsave(params['output_path'], img)
+    else:
+        imsave(params['output_path'], numpy.where(img > thresh, 255, 0))
 
 
 class ImagePreProcessing(FnJob):
-    functions = {'crop_white': crop_white, 'scale': scale, 'crop': crop, 'binarize': binarize}
+    functions = {'crop_white': crop_white, 'scale': scale, 'crop': crop, 'binarize': binarize, 'deskew': deskew}
 
     def create_input(self):
         return InputDir()

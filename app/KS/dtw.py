@@ -32,7 +32,7 @@ class DtwTrain(Job):
                 if name in image_features_dict:
                     cluster.set_features_for_name(name, image_features_dict[name], is_validation)
                 else:
-                    logger.warning('we computed no feature for name {}'.format(name))
+                    logger.warning('could not find features for "{}"'.format(name))
 
             cluster.train(self.config.getint('window_size', 1500))
             cluster_dict[transcription] = cluster
@@ -84,7 +84,10 @@ class DtwValidate(Job):
                         )
                         min_cost = min(min_cost, numpy.sum(result.get_warping_path()))
                     except ValueError:
-                        logger.warning('no path found for')
+                        logger.warning('no alignment path for "{}" and "{}"'.format(train_name, valid_name))
+                    except Exception as e:
+                        logger.warning('no alignment path for "{}" and "{}"'.format(train_name, valid_name))
+                        logger.error(e)
 
                 is_same_transcription = task.transcription == transcription.get_transcription_for_name(valid_name)
                 same += int(is_same_transcription)
@@ -96,7 +99,8 @@ class DtwValidate(Job):
                         selected_wrong += 1
 
             if same == 0 or selected_right == 0:
-                logger.info('validate failed for {}'.format(task.transcription))
+                logger.info('-------[ validate failed for {}'.format(task.transcription))
+                logger.info('same: {}, selected_right: {}, selected_wrong: {}'.format(same, selected_right, selected_wrong))
             else:
                 logger.info('-------[ {}'.format(task.transcription))
                 logger.info('recall: {}'.format(selected_right/(selected_right + (same - selected_right))))
