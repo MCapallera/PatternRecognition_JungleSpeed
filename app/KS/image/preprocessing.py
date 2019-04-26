@@ -42,13 +42,18 @@ def crop_white(params):
     if bbox:
         if params['keep_height']:
             bbox = (bbox[0], 0, bbox[2], image.height)
+
+        if params['width_offset'] != '0':
+            width_offset = int(params['width_offset'])
+            bbox = (max(bbox[0] - width_offset, 0), bbox[1], min(bbox[2] + width_offset, image.width), bbox[3])
+
         image = image.crop(bbox)
         image.save(params['output_path'])
 
 
 def scale(params):
     img = Image.open(params['input_path'], 'r')
-    img = img.resize((int(params['scale_w']), int(params['scale_h'])))
+    img = img.resize((int(params['scale_w']), int(params['scale_h'])), Image.LANCZOS)
     img.save(params['output_path'])
 
 
