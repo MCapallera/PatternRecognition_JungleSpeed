@@ -35,7 +35,7 @@ class Bootstrap:
 
         if main_config.getint('log_to_file', 0) == 1:
             logger.propagate = False
-            log_dir = '../results/{}/{}/'.format(self.name, datetime.datetime.now().strftime('%Y%m%d-%H%M'))
+            log_dir = '../results/{}/{}-{}/'.format(self.name, main_config.get('name', 'base'), datetime.datetime.now().strftime('%Y%m%d-%H%M'))
             file_path = log_dir + 'main.log'
             util.path.ensure_dir(log_dir)
 

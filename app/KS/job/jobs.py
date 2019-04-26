@@ -1,5 +1,7 @@
 import logging
-from KS.dtw import DtwTrain, DtwValidate
+
+from KS.train import DtwTrain
+from KS.validate import DtwValidate
 from KS.image.features import ImageFeaturesJob
 from KS.image.preprocessing import ImagePreProcessing
 from KS.job.dispatchdata import DispatchData
