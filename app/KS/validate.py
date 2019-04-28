@@ -1,8 +1,9 @@
-import math, logging
+import math, logging, numpy
+
+from KS import service
 from KS.job.io.input import InputData
 from KS.job.io.output import OutputData
 from KS.job.job import Job
-from KS.transcription import Transcription
 from config import get_config_for
 from KS.dtw import DTW
 
@@ -23,7 +24,7 @@ class DtwValidate(Job):
 
     def run(self, data):
         params = data.params
-        transcription = Transcription()
+        transcription = service.get_transcription_provider()
         cluster_dict = self.input.get_input(params)
 
         valid_features_set = {}
@@ -31,24 +32,40 @@ class DtwValidate(Job):
             for name, features in cluster.get_validation_features():
                 valid_features_set[name] = features
 
-        for task in transcription.get_tasks():
+        fns = []
+        tasks = transcription.get_tasks()
+        valid_features_set_items = valid_features_set.items()
+        for task in tasks:
+            if task.transcription not in cluster_dict:
+                continue
+
+            cluster = cluster_dict[task.transcription]
+            for valid_name, valid_features in valid_features_set_items:
+                for train_name, train_features in cluster.get_train_features():
+                    fns.append(self.dtw.create_delayed(train_features, valid_features, train_name, valid_name))
+        parallel = service.get_parallel()
+        parallel.verbose = 1
+        result = parallel(fns)
+
+        result_index = 0
+        for task in tasks:
             if task.transcription not in cluster_dict:
                 logger.warning('task "{}" has no cluster'.format(task.transcription))
                 continue
 
             cluster = cluster_dict[task.transcription]
+
             same = 0
             selected_wrong = 0
             selected_right = 0
 
-            for valid_name, valid_features in valid_features_set.items():
+            for valid_name, valid_features in valid_features_set_items:
+                partial_result = result[result_index:cluster.train_len]
+                result_index += cluster.train_len
+
                 min_cost = math.inf
-
-                for train_name, train_features in cluster.get_train_features():
-                    result = self.dtw.exec(train_features, valid_features, train_name, valid_name)
-
-                    if result is not None:
-                        min_cost = min(min_cost, result)
+                partial_result = numpy.append(list(filter(None.__ne__, partial_result)), min_cost)
+                min_cost = numpy.min(partial_result)
 
                 is_same_transcription = task.transcription == transcription.get_transcription_for_name(valid_name)
                 same += int(is_same_transcription)
@@ -59,10 +76,8 @@ class DtwValidate(Job):
                     else:
                         selected_wrong += 1
 
-            if same == 0 or selected_right == 0:
-                logger.info('-------[ validate failed for {}'.format(task.transcription))
-                logger.info('same: {}, selected_right: {}, selected_wrong: {}'.format(same, selected_right, selected_wrong))
-            else:
-                logger.info('-------[ {}'.format(task.transcription))
-                logger.info('recall: {}'.format(selected_right/(selected_right + (same - selected_right))))
-                logger.info('precision: {}'.format(selected_right/(selected_right + selected_wrong)))
+            logger.info('-------[ {}'.format(task.transcription))
+            logger.info('same: {}, selected_right: {}, selected_wrong: {}'.format(same, selected_right, selected_wrong))
+            logger.info('recall: {}'.format(selected_right/same if same != 0 else 0))
+            selected = selected_right + selected_wrong
+            logger.info('precision: {}'.format(selected_right/selected if selected != 0 else 0))

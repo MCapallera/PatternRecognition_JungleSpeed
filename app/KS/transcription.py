@@ -1,6 +1,7 @@
-import logging
+import logging, re
 
 logger = logging.getLogger(__name__)
+cleanup = re.compile(r"-s_(pt|cm|mi|qo|qt|sq|br)+")
 
 
 class Transcription:
@@ -12,7 +13,7 @@ class Transcription:
         f.close()
 
         for w in words:
-            transcription = w[10:].strip()
+            transcription = self.prepare_transcription(w[10:])
             name = w[0:9]
             is_valid = int(w[0:3]) >= 300
 
@@ -34,18 +35,25 @@ class Transcription:
             for bag in self.transcription_to_name[transcription]:
                 if bag[1] == valid:
                     return bag[0]
-        logger.warning('could not find name for "{}" constraint by valid:{}'.format(transcription, valid))
+        logger.warning('could not find name for "{}" constraint by valid:{}'.format(transcription, 'true' if valid else 'false'))
         return None
+
+    def prepare_transcription(self, transcription):
+        transcription = cleanup.sub('', transcription.strip())
+        return transcription
 
     def get_tasks(self):
         f = open('../data/ks/task/keywords.txt', 'r')
         words = f.readlines()
         f.close()
         tasks = []
+        transcription_dict = {}
 
         for transcription in words:
-            transcription = transcription.strip()
-            tasks.append(Task(transcription, self.get_name_for_transcription(transcription, False)))
+            transcription = self.prepare_transcription(transcription)
+            if transcription not in transcription_dict:
+                transcription_dict[transcription] = 1
+                tasks.append(Task(transcription, self.get_name_for_transcription(transcription, False)))
 
         return tasks
 

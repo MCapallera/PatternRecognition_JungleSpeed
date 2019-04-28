@@ -1,12 +1,11 @@
+import os, numpy
 from os.path import join
-
-import numpy
 from PIL import Image, ImageChops, ImageDraw
 from scipy.ndimage import affine_transform
 from skimage.color import rgb2gray
 from skimage.io import imread, imsave
 from skimage import filters
-from skimage.measure import moments, moments_central
+from skimage.measure import moments_central
 
 from KS.image.helpers import get_background_color
 from KS.job.io.input import InputDir
@@ -39,6 +38,10 @@ def crop_white(params):
     bg = Image.new(image.mode, image.size, image.getpixel((0, 0)))
     diff = ImageChops.difference(image, bg)
     bbox = diff.getbbox()
+
+    if 'crop_input_directory' in params and params['crop_input_directory'] != '':
+        image = Image.open(join(os.path.abspath(params['crop_input_directory']), params['filename']), 'r')
+
     if bbox:
         if params['keep_height']:
             bbox = (bbox[0], 0, bbox[2], image.height)
@@ -49,6 +52,9 @@ def crop_white(params):
 
         image = image.crop(bbox)
         image.save(params['output_path'])
+    else:
+        if params['output_path'] != params['input_path']:
+            image.save(params['output_path'])
 
 
 def scale(params):

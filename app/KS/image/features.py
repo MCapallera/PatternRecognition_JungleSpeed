@@ -43,12 +43,14 @@ class ImageFeaturesJob(Job):
         params = {**self.params, **data.params}
         result = {}
 
-        for item in self.input.get_input(params):
+        for i, item in enumerate(self.input.get_input(params)):
             name = item['filename'].split('.')[0]
             try:
                 result[name] = self.features.extract(imread(item['input_path']))
             except Exception as e:
                 raise Exception('could not extract features for {}'.format(name), e)
+
+            # if i > 100: break
 
         self.store_features(result)
         params['result'] = result
