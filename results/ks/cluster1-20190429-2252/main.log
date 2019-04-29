@@ -1,0 +1,455 @@
+2019-04-29 22:52:41 INFO     KS load config:
+[main]
+name=cluster1
+log_to_file=1
+
+[jobs]
+items=featureSelection,train,validate
+
+[job_featureSelection]
+input_directory=../data/ks/job/normalizeHeight/
+type=ImageFeatures
+orientations=9
+pixels_per_cell=48,48
+cells_per_block=2,2
+adapt_pixels_per_cell=1
+output_path=../data/ks/features_cluster1.csv
+
+[job_train]
+type=DtwTrain
+lib=dtwalign
+window_type=sakoechiba
+window_size=1000
+fastdtw_radius=2
+output_path=../data/ks/clusters_cluster1.csv
+
+[job_validate]
+type=DtwValidate
+lib=dtwalign
+window_type=sakoechiba
+window_size=1000
+fastdtw_radius=2
+
+2019-04-29 22:52:41 INFO     KS.job.jobs run job featureSelection
+2019-04-29 22:52:51 INFO     KS.job.jobs run job train
+2019-04-29 23:06:55 INFO     KS.job.jobs run job validate
+2019-04-29 23:10:03 INFO     KS.validate -------[ a-l-e-x-a-n-d-r-i-a
+2019-04-29 23:10:03 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:03 INFO     KS.validate recall: 0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0
+2019-04-29 23:10:03 INFO     KS.validate -------[ c-a-p-t-a-i-n
+2019-04-29 23:10:03 INFO     KS.validate same: 5, selected_right: 5, selected_wrong: 1161
+2019-04-29 23:10:03 INFO     KS.validate recall: 1.0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0.004288164665523156
+2019-04-29 23:10:03 INFO     KS.validate -------[ c-l-o-t-h-e-s
+2019-04-29 23:10:03 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 335
+2019-04-29 23:10:03 INFO     KS.validate recall: 0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:03 INFO     KS.validate -------[ c-l-o-t-h-i-n-g
+2019-04-29 23:10:03 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 272
+2019-04-29 23:10:03 INFO     KS.validate recall: 0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:03 INFO     KS.validate -------[ c-o-l-o-n-e-l
+2019-04-29 23:10:03 INFO     KS.validate same: 2, selected_right: 0, selected_wrong: 35
+2019-04-29 23:10:03 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:03 INFO     KS.validate -------[ c-o-m-m-i-s_s-s-a-r-y
+2019-04-29 23:10:03 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 2
+2019-04-29 23:10:03 INFO     KS.validate recall: 0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:03 INFO     KS.validate -------[ c-o-u-r-t
+2019-04-29 23:10:03 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 1
+2019-04-29 23:10:03 INFO     KS.validate recall: 0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:03 INFO     KS.validate -------[ c-u-m-b-e-r-l-a-n-d
+2019-04-29 23:10:03 INFO     KS.validate same: 1, selected_right: 1, selected_wrong: 85
+2019-04-29 23:10:03 INFO     KS.validate recall: 1.0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0.011627906976744186
+2019-04-29 23:10:03 INFO     KS.validate -------[ d-i-c-k
+2019-04-29 23:10:03 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:03 INFO     KS.validate recall: 0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0
+2019-04-29 23:10:03 INFO     KS.validate -------[ d-o-c-t-o-r
+2019-04-29 23:10:03 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:03 INFO     KS.validate recall: 0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0
+2019-04-29 23:10:03 INFO     KS.validate -------[ e-n-s-i-g-n
+2019-04-29 23:10:03 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 21
+2019-04-29 23:10:03 INFO     KS.validate recall: 0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:03 INFO     KS.validate -------[ f-o-r-t
+2019-04-29 23:10:03 INFO     KS.validate same: 2, selected_right: 2, selected_wrong: 671
+2019-04-29 23:10:03 INFO     KS.validate recall: 1.0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0.0029717682020802376
+2019-04-29 23:10:03 INFO     KS.validate -------[ f-o-r-t-s_pt
+2019-04-29 23:10:03 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:03 INFO     KS.validate recall: 0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0
+2019-04-29 23:10:03 INFO     KS.validate -------[ f-r-e-d-e-r-i-c-k-s-b-u-r-g-h-s_cm
+2019-04-29 23:10:03 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:03 INFO     KS.validate recall: 0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0
+2019-04-29 23:10:03 INFO     KS.validate -------[ g-e-o-r-g-e
+2019-04-29 23:10:03 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:03 INFO     KS.validate recall: 0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0
+2019-04-29 23:10:03 INFO     KS.validate -------[ g-u-a-r-d
+2019-04-29 23:10:03 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 68
+2019-04-29 23:10:03 INFO     KS.validate recall: 0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:03 INFO     KS.validate -------[ i-n-s-t-r-u-c-t-i-o-n-s-s_pt
+2019-04-29 23:10:03 INFO     KS.validate same: 4, selected_right: 4, selected_wrong: 855
+2019-04-29 23:10:03 INFO     KS.validate recall: 1.0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0.004656577415599534
+2019-04-29 23:10:03 INFO     KS.validate -------[ j-o-h-n
+2019-04-29 23:10:03 INFO     KS.validate same: 3, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:03 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0
+2019-04-29 23:10:03 INFO     KS.validate -------[ l-e-t-t-e-r-s
+2019-04-29 23:10:03 INFO     KS.validate same: 6, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:03 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:03 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ l-i-e-u-t-e-n-a-n-t
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 714
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ m-a-j-o-r
+2019-04-29 23:10:04 INFO     KS.validate same: 1, selected_right: 1, selected_wrong: 586
+2019-04-29 23:10:04 INFO     KS.validate recall: 1.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0017035775127768314
+2019-04-29 23:10:04 INFO     KS.validate -------[ m-r-s_pt
+2019-04-29 23:10:04 INFO     KS.validate same: 1, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ o-f-f-i-c-e-r-s
+2019-04-29 23:10:04 INFO     KS.validate same: 3, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ o-r-d-e-r
+2019-04-29 23:10:04 INFO     KS.validate same: 1, selected_right: 1, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 1.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 1.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ o-r-d-e-r-s
+2019-04-29 23:10:04 INFO     KS.validate same: 6, selected_right: 5, selected_wrong: 586
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.8333333333333334
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.008460236886632826
+2019-04-29 23:10:04 INFO     KS.validate -------[ o-r-d-e-r-s-s_pt
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ p-a-r-o-l-e
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 3
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ r-e-c-r-u-i-t-s
+2019-04-29 23:10:04 INFO     KS.validate same: 2, selected_right: 0, selected_wrong: 141
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ r-e-g-i-m-e-n-t
+2019-04-29 23:10:04 INFO     KS.validate same: 1, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ r-e-g-i-m-e-n-t-s_pt
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 1
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ r-e-n-d-e-z-v-o-u-s
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 22
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ r-e-t-u-r-n
+2019-04-29 23:10:04 INFO     KS.validate same: 1, selected_right: 0, selected_wrong: 23
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ r-o-b-e-r-t
+2019-04-29 23:10:04 INFO     KS.validate same: 1, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ s-a-l-t
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ s-e-r-g-e-a-n-t
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ s-e-r-g-e-a-n-t-s_cm
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 435
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ s-h-i-r-t-s-s_cm
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ s-o-l-d-i-e-r-s
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ s-t-e-w-a-r-t-s_cm
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ s-t-o-r-e-s
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ s-u-i-t-s
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ v-i-r-g-i-n-i-a
+2019-04-29 23:10:04 INFO     KS.validate same: 1, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ w-a-g-g-o-n-s
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 256
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ w-a-s-h-i-n-g-t-o-n-s_cm
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ w-i-n-c-h-e-s-t-e-r
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 6
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ w-i-n-c-h-e-s-t-e-r-s_cm
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 70
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ w-i-n-c-h-e-s-t-e-r-s_qo
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ a-b-s-o-l-u-t-e-l-y
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ a-r-r-i-v-e
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 563
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ a-r-r-i-v-e-s_cm
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 1
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ a-t-e-l-y
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 252
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ c-a-m-p-s_pt
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ c-a-r-e
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ c-a-r-e-f-u-l
+2019-04-29 23:10:04 INFO     KS.validate same: 1, selected_right: 0, selected_wrong: 459
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ c-a-r-r-y
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 63
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ d-a-y
+2019-04-29 23:10:04 INFO     KS.validate same: 1, selected_right: 0, selected_wrong: 2
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ d-e
+2019-04-29 23:10:04 INFO     KS.validate same: 1, selected_right: 0, selected_wrong: 3
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ d-e-l-i-v-e-r
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 437
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ d-e-l-i-v-e-r-e-d
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 3
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ d-e-s-e-r-t
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ d-i-r-e-c-t-i-o-n-s
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ d-i-s-p-a-t-c-h
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 1
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ e-n-g-a-g-e-d
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ e-n-l-i-s-t-e-d
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ e-n-t-e-r
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 1
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ e-s-c-o-r-t
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ f-u-r-n-i-s-h
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ g-r-e-a-t-l-y
+2019-04-29 23:10:04 INFO     KS.validate same: 1, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ h-u-n-d-r-e-d
+2019-04-29 23:10:04 INFO     KS.validate same: 2, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ i-m-m-e-d-i-a-t-e-l-y
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 1
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ j-o-i-n
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 3
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ l-e-f-t
+2019-04-29 23:10:04 INFO     KS.validate same: 2, selected_right: 0, selected_wrong: 1
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ m-a-d-e
+2019-04-29 23:10:04 INFO     KS.validate same: 2, selected_right: 1, selected_wrong: 1002
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.5
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0009970089730807576
+2019-04-29 23:10:04 INFO     KS.validate -------[ m-a-k-e
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 279
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ m-a-r-c-h
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ m-a-r-c-h-s_cm
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ m-e-d-i-a-t-e-l-y
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ m-e-n
+2019-04-29 23:10:04 INFO     KS.validate same: 3, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ m-e-n-s_cm
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 370
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ n-u-m-b-e-r
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ o-p-p-o-r-t-u-n-i-t-y
+2019-04-29 23:10:04 INFO     KS.validate same: 2, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ o-r-d-e-r-e-d
+2019-04-29 23:10:04 INFO     KS.validate same: 1, selected_right: 1, selected_wrong: 861
+2019-04-29 23:10:04 INFO     KS.validate recall: 1.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.001160092807424594
+2019-04-29 23:10:04 INFO     KS.validate -------[ p-a-y
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 447
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ p-l-a-c-e
+2019-04-29 23:10:04 INFO     KS.validate same: 1, selected_right: 0, selected_wrong: 439
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ p-o-u-n-d-s
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ p-r-o-v-i-d-e
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 67
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ p-r-o-v-i-s-i-o-n-s-s_cm
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 443
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ p-u-r-c-h-a-s-e
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ q-u-a-n-t-i-t-y
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 209
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ r-e-c-e-i-p-t
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ r-e-c-e-i-v-e
+2019-04-29 23:10:04 INFO     KS.validate same: 2, selected_right: 0, selected_wrong: 86
+2019-04-29 23:10:04 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:04 INFO     KS.validate -------[ r-e-c-e-i-v-e-d
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:04 INFO     KS.validate -------[ r-e-m-a-i-n
+2019-04-29 23:10:04 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:04 INFO     KS.validate recall: 0
+2019-04-29 23:10:04 INFO     KS.validate precision: 0
+2019-04-29 23:10:05 INFO     KS.validate -------[ r-e-p-a-i-r
+2019-04-29 23:10:05 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 3
+2019-04-29 23:10:05 INFO     KS.validate recall: 0
+2019-04-29 23:10:05 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:05 INFO     KS.validate -------[ s-e-n-d
+2019-04-29 23:10:05 INFO     KS.validate same: 2, selected_right: 1, selected_wrong: 767
+2019-04-29 23:10:05 INFO     KS.validate recall: 0.5
+2019-04-29 23:10:05 INFO     KS.validate precision: 0.0013020833333333333
+2019-04-29 23:10:05 INFO     KS.validate -------[ s_gw
+2019-04-29 23:10:05 INFO     KS.validate same: 2, selected_right: 1, selected_wrong: 2
+2019-04-29 23:10:05 INFO     KS.validate recall: 0.5
+2019-04-29 23:10:05 INFO     KS.validate precision: 0.3333333333333333
+2019-04-29 23:10:05 INFO     KS.validate -------[ s_et-c-s_pt
+2019-04-29 23:10:05 INFO     KS.validate same: 5, selected_right: 3, selected_wrong: 10
+2019-04-29 23:10:05 INFO     KS.validate recall: 0.6
+2019-04-29 23:10:05 INFO     KS.validate precision: 0.23076923076923078
+2019-04-29 23:10:05 INFO     KS.validate -------[ t-e-r-m-s
+2019-04-29 23:10:05 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:05 INFO     KS.validate recall: 0
+2019-04-29 23:10:05 INFO     KS.validate precision: 0
+2019-04-29 23:10:05 INFO     KS.validate -------[ t-h-i-n-g-s
+2019-04-29 23:10:05 INFO     KS.validate same: 1, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:05 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:05 INFO     KS.validate precision: 0
+2019-04-29 23:10:05 INFO     KS.validate -------[ t-w-e-l-v-e
+2019-04-29 23:10:05 INFO     KS.validate same: 1, selected_right: 0, selected_wrong: 52
+2019-04-29 23:10:05 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:05 INFO     KS.validate precision: 0.0
+2019-04-29 23:10:05 INFO     KS.validate -------[ u-n-f-i-t
+2019-04-29 23:10:05 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:05 INFO     KS.validate recall: 0
+2019-04-29 23:10:05 INFO     KS.validate precision: 0
+2019-04-29 23:10:05 INFO     KS.validate -------[ u-t-m-o-s-t
+2019-04-29 23:10:05 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:05 INFO     KS.validate recall: 0
+2019-04-29 23:10:05 INFO     KS.validate precision: 0
+2019-04-29 23:10:05 INFO     KS.validate -------[ w-a-g-g-o-n-s-s_cm
+2019-04-29 23:10:05 INFO     KS.validate same: 0, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:05 INFO     KS.validate recall: 0
+2019-04-29 23:10:05 INFO     KS.validate precision: 0
+2019-04-29 23:10:05 INFO     KS.validate -------[ w-a-n-t-e-d
+2019-04-29 23:10:05 INFO     KS.validate same: 1, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:05 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:05 INFO     KS.validate precision: 0
+2019-04-29 23:10:05 INFO     KS.validate -------[ w-a-n-t-i-n-g
+2019-04-29 23:10:05 INFO     KS.validate same: 1, selected_right: 0, selected_wrong: 0
+2019-04-29 23:10:05 INFO     KS.validate recall: 0.0
+2019-04-29 23:10:05 INFO     KS.validate precision: 0
