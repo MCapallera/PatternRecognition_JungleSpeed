@@ -20,6 +20,9 @@ class Cluster:
         self.name_to_features[name] = (features, is_validation)
 
     def train(self, result_tree):
+        if self.train_len == 0:
+            return # nothing to train
+
         train_features = dict(list(self.get_train_features()))
 
         same_results = []
@@ -39,10 +42,18 @@ class Cluster:
         self.calculate_stats(same_results, differ_results)
 
     def calculate_stats(self, same_results, differ_results):
+        same_results_length = len(same_results)
+        if same_results_length != self.train_len:
+            logger.warning('cluster "{}" has "None" in inter cluster distances ({}/{})'.format(self.transcription, same_results_length, self.train_len))
+
+        if same_results_length == 0:
+            same_results.append(0)
+
         same_results = numpy.asarray(same_results)
         differ_results = numpy.asarray(differ_results)
         same_max = numpy.max(same_results)
         differ_min = numpy.min(differ_results)
+
         if same_max < differ_min:
             self.estimated_cost_barrier = same_max
         else:
