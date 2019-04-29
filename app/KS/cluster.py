@@ -1,4 +1,4 @@
-import logging, numpy
+import logging, numpy, math
 from KS import service
 
 logger = logging.getLogger(__name__)
@@ -36,6 +36,9 @@ class Cluster:
                 else:
                     differ_results.append(result)
 
+        self.calculate_stats(same_results, differ_results)
+
+    def calculate_stats(self, same_results, differ_results):
         same_results = numpy.asarray(same_results)
         differ_results = numpy.asarray(differ_results)
         same_max = numpy.max(same_results)
@@ -43,8 +46,18 @@ class Cluster:
         if same_max < differ_min:
             self.estimated_cost_barrier = same_max
         else:
-            self.estimated_cost_barrier = (numpy.median(differ_results[differ_results < same_max])
-                                           + numpy.median(same_results[same_results > differ_min])) / 2
+            same_intersect_results = same_results[same_results > differ_min]
+            differ_intersect_results = differ_results[differ_results < same_max]
+            intersect_sorted = numpy.sort(numpy.concatenate((same_intersect_results, differ_intersect_results)))
+            score = -math.inf
+            for d in intersect_sorted:
+                new_score = same_results[same_results < d].shape[0] - differ_intersect_results[differ_intersect_results < d].shape[0]
+                if new_score >= score:
+                    self.estimated_cost_barrier = d
+                    score = new_score
+                else:
+                    break
+
         if self.estimated_cost_barrier == 0:
             self.estimated_cost_barrier = max(differ_min - 1, 1)
 
