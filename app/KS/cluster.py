@@ -1,13 +1,11 @@
 import logging, numpy
-from itertools import combinations
 from KS import service
-from KS.dtw import DTW
 
 logger = logging.getLogger(__name__)
 
 
 class Cluster:
-    __slots__ = ('transcription', 'name_to_features', 'estimated_cost_barrier', 'train_len', 'validate_len')
+    __slots__ = ('transcription', 'name_to_features', 'estimated_cost_barrier', 'train_len', 'validate_len', 'recall', 'precision')
 
     def __init__(self, transcription):
         self.transcription = transcription
@@ -15,23 +13,45 @@ class Cluster:
         self.estimated_cost_barrier = 0
         self.train_len = 0
         self.validate_len = 0
+        self.recall = 0
+        self.precision = 0
 
     def set_features_for_name(self, name, features, is_validation):
         self.name_to_features[name] = (features, is_validation)
 
-    def train(self, dtw: DTW):
-        train_features = list(self.get_train_features())
-        fns = []
+    def train(self, result_tree):
+        train_features = dict(list(self.get_train_features()))
 
-        for features_set in combinations(train_features, 2):
-            fns.append(dtw.create_delayed(features_set[0][1], features_set[1][1], features_set[0][0], features_set[1][0]))
+        same_results = []
+        differ_results = []
+        for name, features in train_features.items():
+            if name not in result_tree:
+                continue
 
-        if len(fns) > 0:
-            result = service.get_parallel()(fns)
-            result = numpy.append(list(filter(None.__ne__, result)), 0)
-            self.estimated_cost_barrier = numpy.max(result)
+            results = result_tree[name]
+            service.get_transcription_provider()
+            for n, result in results.items():
+                if n in train_features:
+                    same_results.append(result)
+                else:
+                    differ_results.append(result)
+
+        same_results = numpy.asarray(same_results)
+        differ_results = numpy.asarray(differ_results)
+        same_max = numpy.max(same_results)
+        differ_min = numpy.min(differ_results)
+        if same_max < differ_min:
+            self.estimated_cost_barrier = same_max
         else:
-            self.estimated_cost_barrier = 0
+            self.estimated_cost_barrier = (numpy.median(differ_results[differ_results < same_max])
+                                           + numpy.median(same_results[same_results > differ_min])) / 2
+        if self.estimated_cost_barrier == 0:
+            self.estimated_cost_barrier = max(differ_min - 1, 1)
+
+        selected_right = same_results[same_results < self.estimated_cost_barrier].shape[0]
+        selected_all = selected_right + differ_results[differ_results < self.estimated_cost_barrier].shape[0]
+        self.recall = selected_right / self.train_len if self.train_len > 0 else 0
+        self.precision = selected_right / selected_all if selected_all > 0 else 0
 
     def compute_stats(self):
         self.train_len = len(list(self.get_train_features()))

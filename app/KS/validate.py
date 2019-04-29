@@ -43,9 +43,7 @@ class DtwValidate(Job):
             for valid_name, valid_features in valid_features_set_items:
                 for train_name, train_features in cluster.get_train_features():
                     fns.append(self.dtw.create_delayed(train_features, valid_features, train_name, valid_name))
-        parallel = service.get_parallel()
-        parallel.verbose = 1
-        result = parallel(fns)
+        result = service.get_parallel()(fns)
 
         result_index = 0
         for task in tasks:

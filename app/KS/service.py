@@ -11,6 +11,6 @@ def get_transcription_provider():
 
 def get_parallel():
     if not hasattr(get_parallel, 'instance'):
-        get_parallel.instance = Parallel(n_jobs=-1, max_nbytes='1M', verbose=False, backend='multiprocessing')
+        get_parallel.instance = Parallel(n_jobs=-2, max_nbytes='1M', verbose=1, backend='multiprocessing')
 
     return get_parallel.instance
