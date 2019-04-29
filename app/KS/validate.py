@@ -60,7 +60,7 @@ class DtwValidate(Job):
             selected_right = 0
 
             for valid_name, valid_features in valid_features_set_items:
-                partial_result = result[result_index:cluster.train_len]
+                partial_result = result[result_index:result_index+cluster.train_len]
                 result_index += cluster.train_len
 
                 min_cost = math.inf
