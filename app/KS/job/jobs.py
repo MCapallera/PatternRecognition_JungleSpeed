@@ -3,7 +3,7 @@ import logging
 from KS.train import DtwTrain
 from KS.validate import DtwValidate
 from KS.image.features import ImageFeaturesJob
-from KS.image.preprocessing import ImagePreProcessing
+from KS.image.preprocessing import ImagePreProcessing, NormalizeHeight
 from KS.job.dispatchdata import DispatchData
 from config import get_config_for
 logger = logging.getLogger(__name__)
@@ -48,6 +48,7 @@ class Jobs:
 
 job_registry = {
     'ImagePreProcessing': ImagePreProcessing
+    , 'NormalizeHeight': NormalizeHeight
     , 'DtwTrain': DtwTrain
     , 'DtwValidate': DtwValidate
     , 'ImageFeatures': ImageFeaturesJob

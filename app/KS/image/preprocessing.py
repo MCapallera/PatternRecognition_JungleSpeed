@@ -10,8 +10,10 @@ from skimage.measure import moments_central
 from KS.image.helpers import get_background_color
 from KS.job.io.input import InputDir
 from KS.job.io.output import OutputDir
-from KS.job.job import FnJob
+from KS.job.job import FnJob, Job
 from svgpathtools import svg2paths
+
+from config import get_config_for
 from util.dict import subset, dynamic_cast
 
 
@@ -114,3 +116,32 @@ class ImagePreProcessing(FnJob):
 
     def create_output(self):
         return OutputDir()
+
+
+class NormalizeHeight(Job):
+    def __init__(self, name: str):
+        super().__init__(name)
+        config = get_config_for('job_' + name)
+        self.params = config.as_dict()
+        self.params['job_name'] = name
+        self.output.init(self.params)
+
+    def create_input(self):
+        return InputDir()
+
+    def create_output(self):
+        return OutputDir()
+
+    def run(self, data):
+        params = {**self.params, **data.params}
+        heights = []
+        for item in self.input.get_input(params):
+            heights.append(Image.open(item['input_path'], 'r').height)
+
+        height = numpy.mean(heights)
+        for item in self.input.get_input(params):
+            img = Image.open(item['input_path'], 'r')
+            img = img.resize((int(img.width*(height/img.height)), int(height)), Image.LANCZOS)
+            img.save(item['output_path'])
+
+        self.output.next(params)
