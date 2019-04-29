@@ -39,7 +39,7 @@ class DtwTrain(Job):
                 else:
                     logger.warning('could not find features for "{}"'.format(name))
 
-            for name, features in cluster.get_validation_features():
+            for name, features in cluster.get_train_features():
                 train_features_set[name] = features
 
             cluster.compute_stats()
