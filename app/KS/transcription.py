@@ -39,7 +39,8 @@ class Transcription:
         return None
 
     def prepare_transcription(self, transcription):
-        transcription = cleanup.sub('', transcription.strip())
+        # transcription = cleanup.sub('', transcription.strip())
+        transcription = transcription.strip().lower()
         return transcription
 
     def get_tasks(self):

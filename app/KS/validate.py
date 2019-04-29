@@ -61,14 +61,13 @@ class DtwValidate(Job):
                 partial_result = result[result_index:result_index+cluster.train_len]
                 result_index += cluster.train_len
 
-                min_cost = math.inf
-                partial_result = numpy.append(list(filter(None.__ne__, partial_result)), min_cost)
+                partial_result = numpy.append(list(filter(None.__ne__, partial_result)), math.inf)
                 min_cost = numpy.min(partial_result)
 
                 is_same_transcription = task.transcription == transcription.get_transcription_for_name(valid_name)
                 same += int(is_same_transcription)
 
-                if cluster.estimated_cost_barrier > min_cost:
+                if cluster.estimated_cost_barrier >= min_cost:
                     if is_same_transcription:
                         selected_right += 1
                     else:

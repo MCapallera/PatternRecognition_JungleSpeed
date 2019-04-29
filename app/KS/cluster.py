@@ -21,7 +21,7 @@ class Cluster:
 
     def train(self, result_tree):
         if self.train_len == 0:
-            return # nothing to train
+            return  # nothing to train
 
         train_features = dict(list(self.get_train_features()))
 
@@ -39,11 +39,13 @@ class Cluster:
                 else:
                     differ_results.append(result)
 
+            break  # finish after first item, because all comparison are in the sub object
+
         self.calculate_stats(same_results, differ_results)
 
     def calculate_stats(self, same_results, differ_results):
         same_results_length = len(same_results)
-        if same_results_length != self.train_len:
+        if same_results_length != self.train_len - 1:
             logger.warning('cluster "{}" has "None" in inter cluster distances ({}/{})'.format(self.transcription, same_results_length, self.train_len))
 
         if same_results_length == 0:
