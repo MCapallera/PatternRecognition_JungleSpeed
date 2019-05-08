@@ -1,13 +1,15 @@
 # -*- coding: UTF-8 -*-
-
+from __future__ import print_function
 from algorithm.abstract_graph_edit_dist import AbstractGraphEditDistance
 from algorithm.edge_edit_dist import EdgeEditDistance
-from algorithm.edge_graph import EdgeGraph
+from graph.edge_graph import EdgeGraph
 import sys
+from networkx import __version__ as nxv
 
 
-def compare(g1, g2, pos_weights, deprel_weights, print_details=False):
-    ged = GraphEditDistance(g1, g2, pos_weights, deprel_weights)
+
+def compare(g1, g2, print_details=False):
+    ged = GraphEditDistance(g1, g2)
 
     if print_details:
         ged.print_matrix()
@@ -17,10 +19,8 @@ def compare(g1, g2, pos_weights, deprel_weights, print_details=False):
 
 class GraphEditDistance(AbstractGraphEditDistance):
 
-    def __init__(self, g1, g2, pos_weights, deprel_weights):
+    def __init__(self, g1, g2):
         AbstractGraphEditDistance.__init__(self, g1, g2)
-        self.pos_weights = pos_weights
-        self.deprel_weights = deprel_weights
 
     def substitute_cost(self, node1, node2):
         return self.relabel_cost(node1, node2) + self.edge_diff(node1, node2)
@@ -29,36 +29,27 @@ class GraphEditDistance(AbstractGraphEditDistance):
         if node1 == node2:
             return 0.
         else:
-            try:
-                return self.pos_weights[node1.pos+"-"+node2.pos]
-            except KeyError:
-                return 1.
+            return 1.
 
     def delete_cost(self, i, j, nodes1):
         if i == j:
-            try:
-                return self.pos_weights[nodes1[i].pos]
-            except KeyError:
-                return 1.
-        return sys.maxint
+            return 1
+        return sys.maxsize
 
     def insert_cost(self, i, j, nodes2):
         if i == j:
-            try:
-                return self.pos_weights[nodes2[j].pos]
-            except KeyError:
-                return 1.
+            return 1
         else:
-            return sys.maxint
+            return sys.maxsize
 
     def pos_insdel_weight(self, node):
-        return self.pos_weights(node.pos)
+        return 1
 
     def edge_diff(self, node1, node2):
-        edges1 = self.g1.edges[node1.id_]
-        edges2 = self.g2.edges[node2.id_]
+        edges1 = list(self.g1.edge[node1].keys()) if float(nxv) < 2 else list(self.g1.edges(node1))
+        edges2 = list(self.g2.edge[node2].keys()) if float(nxv) < 2 else list(self.g2.edges(node2))
         if len(edges1) == 0 or len(edges2) == 0:
             return max(len(edges1), len(edges2))
 
-        edit_edit_dist = EdgeEditDistance(EdgeGraph(edges1), EdgeGraph(edges2), self.deprel_weights)
+        edit_edit_dist = EdgeEditDistance(EdgeGraph(node1,edges1), EdgeGraph(node2,edges2))
         return edit_edit_dist.normalized_distance()
