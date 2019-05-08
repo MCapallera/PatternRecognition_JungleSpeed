@@ -6,6 +6,7 @@
 import os
 import xml.etree.ElementTree as ET
 import networkx as nx
+import algorithm.graph_edit_dist as ged
 
 data_path = 'C:/Users/Quentin.Meteier/Documents/Cours Uni/Pattern Recognition/Repo/PatternRecognition_JungleSpeed/data/MoleculesClassification/gxl'
 graphs_dict = {}
@@ -74,8 +75,3 @@ def create_graph(filename):
         g.add_edge(edge_start, edge_end, attr=attribute_dict)
 
     return g
-
-
-if __name__ == "__main__":
-    cwd = os.getcwd()
-    get_graphs()
