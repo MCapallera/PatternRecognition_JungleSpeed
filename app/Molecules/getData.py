@@ -1,38 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-#
-
 
 import os
 import xml.etree.ElementTree as ET
 import networkx as nx
 
-data_path = 'C:/Users/Quentin.Meteier/Documents/Cours Uni/Pattern Recognition/Repo/PatternRecognition_JungleSpeed/data/MoleculesClassification/gxl'
 graphs_dict = {}
+
+cwd = os.getcwd()
+graphes_folder = cwd + '\\' + os.path.pardir + '\\' + os.path.pardir + '\\' + "data\MoleculesClassification\gxl\\"
 
 
 def get_graphs():
-    for file in os.listdir(data_path):
+    for file in os.listdir(graphes_folder):
         molecule_id = file[:-4]
-        new_graph = create_graph(os.path.join(data_path, file))
+        new_graph = create_graph(os.path.join(graphes_folder, file))
         graphs_dict[molecule_id] = new_graph
 
     return graphs_dict
-
-    # cwd = os.getcwd()
-    # data_folder = cwd + "/data/gxl/"
-    # file0 = "16.gxl"
-    # file1 = "35.gxl"
-    # g1 = create_graph(data_folder + file0)
-    # molecule_id = file0[:-4]
-    # print("Creating graph for molecule with ID " + molecule_id)
-    # g2 = create_graph(data_folder + file1)
-    # molecule_id = file0[:-4]
-    # print("Creating graph for molecule with ID " + molecule_id)
-    #
-    # result = ged.compare(g1, g2)
-    # print ("Normalized graph edit distance = %s" % result)
-
 
 def create_graph(filename):
 

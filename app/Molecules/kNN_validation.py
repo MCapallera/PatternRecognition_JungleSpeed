@@ -1,13 +1,11 @@
 import os
-from collections import Counter
 import csv
-import math
 import operator
 import getData
 import algorithm.graph_edit_dist as ged
 
-path_train = 'C:/Users/Quentin.Meteier/Documents/Cours Uni/Pattern Recognition/Repo/PatternRecognition_JungleSpeed/data/MoleculesClassification/train.txt'
-path_valid = 'C:/Users/Quentin.Meteier/Documents/Cours Uni/Pattern Recognition/Repo/PatternRecognition_JungleSpeed/data/MoleculesClassification/valid.txt'
+cwd = os.getcwd()
+label_folder = cwd + '\\' + os.path.pardir + '\\' + os.path.pardir + '\\' + "data\MoleculesClassification\\"
 
 labels_train = {}
 labels_valid = {}
@@ -16,7 +14,8 @@ graphes_train = {}
 graphes_valid = {}
 
 def getLabels_train():
-    with open(path_train, 'r') as f:
+    train_folder = os.path.join(label_folder, "train.txt")
+    with open(train_folder, 'r') as f:
         reader = csv.reader(f, delimiter=' ')
         for row in reader:
             labels_train[int(row[0])] = row[1]
@@ -24,7 +23,8 @@ def getLabels_train():
 
 
 def getLabels_valid():
-    with open(path_valid, 'r') as f:
+    valid_folder = os.path.join(label_folder, "valid.txt")
+    with open(valid_folder, 'r') as f:
         reader = csv.reader(f, delimiter=' ')
         for row in reader:
             labels_valid[int(row[0])] = row[1]
@@ -68,16 +68,16 @@ def Neighbors(graphes_train, valid_label_key, k):
     return neighbors
 
 #Predict/Assign the class
-def Predict(neighbors):
-    PredictedClass = {}
+def predict(neighbors):
+    predicted_class = {}
     for id in neighbors:
         value = labels_train[id]
-        if value in PredictedClass:
-            PredictedClass[value] += 1
+        if value in predicted_class:
+            predicted_class[value] += 1
         else:
-            PredictedClass[value] = 1
-    #print(PredictedClass.items())
-    assignedClass = max(PredictedClass.items(),key=operator.itemgetter(1))[0]
+            predicted_class[value] = 1
+    #print(predicted_class.items())
+    assignedClass = max(predicted_class.items(), key=operator.itemgetter(1))[0]
     return assignedClass
 
 #Calculate accuracy
@@ -86,19 +86,16 @@ def Accuracy(prediction):
     for i in range(len(prediction)):
         if labels_valid[prediction[i][0]] is prediction[i][1]:
             correct += 1
-            print(correct)
-        else:
-            print("faux")
     accuracy = float(correct) / len(prediction) * 100  #accuracy
     return accuracy
 
-
-def runKnn(graph_dict):
+# Main function to run the kNN classification with GED
+def runKnn():
 
     AssignedClasses = []
 
-    #choose number of nearest neighbours and distance calculation
-    k = 3
+    #choose number of nearest neighbours
+    k = 5
 
     getLabels_train()
     getLabels_valid()
@@ -107,34 +104,20 @@ def runKnn(graph_dict):
     getGraphes_valid()
 
     for i in labels_valid:
+        print("Getting the " + str(k) + " neighbours for molcule n°" + str(i))
         neighbors = Neighbors(graphes_train, i, k)
-        prediction = Predict(neighbors)
+        print(str(k) + "-nearest neighbours for molcule n°" + str(i) + "are : " + str(neighbors))
+        prediction = predict(neighbors)
+        print("Prediction for molcule n°" + str(i) + "is : " + str(prediction))
         AssignedClasses.append([i, prediction])
-
-        # print(AssignedClasses[0][0])
-        # print(labels_valid[AssignedClasses[0][0]])
-        # print(i)
-        # print(AssignedClasses[0][1])
-        # print(len(prediction))
-        # if labels_valid[AssignedClasses[0][0]] is AssignedClasses[0][1]:
-        #     print("bravo")
-        # else: print("c'est la merdre")
-    #     #print('class neig' + repr(neighbors))
-    #     print('step ' + repr(i) +': assigned =' + repr(AssignedClasses[i]) + ', real =' + repr(Test_Labels[i]))
+        #print(AssignedClasses)
     accuracy = Accuracy(AssignedClasses)
     print(repr(k) +'-NN Accuracy: ' + repr(accuracy) + '%')
 
 
-###Old KNN -  Adapt to the new task
-### TODO
-#   GED implementation
-#   Change input data
-#   Use GED distance instead of Euclidean distance
-
 if __name__ == "__main__":
-    cwd = os.getcwd()
     graph_dict = getData.get_graphs()
-    runKnn(graph_dict)
+    runKnn()
 
 
 
