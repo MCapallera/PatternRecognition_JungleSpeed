@@ -7,7 +7,9 @@ from KS.dtw import DTW
 from KS.job.io.input import InputData
 from KS.job.io.output import OutputData
 from KS.job.job import Job
+from KS.service import get_log_path
 from config import get_config_for
+from util.dict import create_and_set
 
 logger = logging.getLogger(__name__)
 
@@ -42,27 +44,21 @@ class DtwTrain(Job):
             for name, features in cluster.get_train_features():
                 train_features_set[name] = features
 
-            cluster.compute_stats()
+            cluster.compute_lens()
             cluster_dict[transcription] = cluster
 
         fns = []
-        name_sets = []
         for comb in combinations(train_features_set.items(), 2):
             fns.append(self.dtw.create_delayed(comb[0][1], comb[1][1], comb[0][0], comb[1][0]))
-            name_sets.append({comb[0][0], comb[1][0]})
         results = service.get_parallel()(fns)
 
         result_tree = {}
-        for result_index, result in enumerate(results):
+        for name_one, name_two, result in results:
             if result is None:
                 continue
 
-            name_set = name_sets[result_index]
-            for name in permutations(name_set, 2):
-                if name[0] in result_tree:
-                    result_tree[name[0]][name[1]] = result
-                else:
-                    result_tree[name[0]] = {name[1]: result}
+            for name in permutations([name_one, name_two], 2):
+                create_and_set(result_tree, name[0], name[1], result)
 
         for cluster in cluster_dict.values():
             cluster.train(result_tree)
@@ -72,13 +68,13 @@ class DtwTrain(Job):
         self.output.next(params)
 
     def store_clusters(self, cluster_dict):
-        with open(self.config.get('output_path', '../data/ks/clusters.csv'), 'w', newline='') as csvfile:
+        with open(self.config.get('output_path', get_log_path('clusters.csv')), 'w', newline='') as csvfile:
             writer = csv.writer(csvfile, dialect='excel', quoting=csv.QUOTE_NONNUMERIC)
-            writer.writerow(['transcription', 'estimated_cost_barrier', 'train', 'validate', 'recall', 'precision'])
+            writer.writerow(['transcription', 'cost_threshold', 'train', 'validate', 'recall', 'precision'])
             for cluster in cluster_dict.values():
                 writer.writerow([
                     cluster.transcription
-                    , cluster.estimated_cost_barrier
+                    , cluster.cost_threshold
                     , cluster.train_len
                     , cluster.validate_len
                     , cluster.recall

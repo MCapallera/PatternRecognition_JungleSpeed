@@ -1,11 +1,13 @@
-import math, logging, numpy
+import csv, math, logging, numpy
 
 from KS import service
 from KS.job.io.input import InputData
 from KS.job.io.output import OutputData
 from KS.job.job import Job
+from KS.service import get_log_path
 from config import get_config_for
 from KS.dtw import DTW
+from util.dict import create_and_set
 
 logger = logging.getLogger(__name__)
 
@@ -24,9 +26,8 @@ class DtwValidate(Job):
 
     def run(self, data):
         params = data.params
-        transcription = service.get_transcription_provider()
         cluster_dict = self.input.get_input(params)
-
+        transcription = service.get_transcription_provider()
         valid_features_set = {}
         for cluster_transcription, cluster in cluster_dict.items():
             for name, features in cluster.get_validation_features():
@@ -42,39 +43,39 @@ class DtwValidate(Job):
             cluster = cluster_dict[task.transcription]
             for valid_name, valid_features in valid_features_set_items:
                 for train_name, train_features in cluster.get_train_features():
-                    fns.append(self.dtw.create_delayed(train_features, valid_features, train_name, valid_name))
-        result = service.get_parallel()(fns)
+                    fns.append(self.dtw.create_delayed(valid_features, train_features, valid_name, train_name))
 
-        result_index = 0
+        results = service.get_parallel()(fns)
+        result_tree = {}
+        for name_one, name_two, result in results:
+            if result is None:
+                continue
+            create_and_set(result_tree, name_one, name_two, result)
+
         for task in tasks:
             if task.transcription not in cluster_dict:
                 logger.warning('task "{}" has no cluster'.format(task.transcription))
                 continue
 
             cluster = cluster_dict[task.transcription]
-
-            same = 0
-            selected_wrong = 0
-            selected_right = 0
+            train_names = [name for name, features in cluster.get_train_features()]
 
             for valid_name, valid_features in valid_features_set_items:
-                partial_result = result[result_index:result_index+cluster.train_len]
-                result_index += cluster.train_len
+                result_sub = result_tree[valid_name] if valid_name in result_tree else {}
+                min_cost = numpy.min(
+                    numpy.append([result_sub[name] for name in train_names if name in result_sub], math.inf))
 
-                partial_result = numpy.append(list(filter(None.__ne__, partial_result)), math.inf)
-                min_cost = numpy.min(partial_result)
+                if cluster.cost_threshold >= min_cost:
+                    task.add_selected(valid_name, min_cost)
 
-                is_same_transcription = task.transcription == transcription.get_transcription_for_name(valid_name)
-                same += int(is_same_transcription)
+        with open(self.config.get('output_path', get_log_path('tasks.csv')), 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile, dialect='excel', quoting=csv.QUOTE_NONNUMERIC)
+            for task in tasks:
+                data = [task.transcription]
+                for name, distance in task.selected.items():
+                    data.append(name)
+                    data.append(distance)
+                writer.writerow(data)
 
-                if cluster.estimated_cost_barrier >= min_cost:
-                    if is_same_transcription:
-                        selected_right += 1
-                    else:
-                        selected_wrong += 1
-
-            logger.info('-------[ {}'.format(task.transcription))
-            logger.info('same: {}, selected_right: {}, selected_wrong: {}'.format(same, selected_right, selected_wrong))
-            logger.info('recall: {}'.format(selected_right/same if same != 0 else 0))
-            selected = selected_right + selected_wrong
-            logger.info('precision: {}'.format(selected_right/selected if selected != 0 else 0))
+        params['result'] = tasks
+        self.output.next(params)

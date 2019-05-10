@@ -10,11 +10,11 @@ class DTW:
         self.params = None
         self.delayed = self.__getattribute__('prepare_'+self.lib)(config)
 
-    def create_delayed(self, train_features, valid_features, train_name, valid_name):
+    def create_delayed(self, features_one, features_two, name_one, name_two):
         if self.params is None:
-            return self.delayed(train_features, valid_features, train_name, valid_name)
+            return self.delayed(features_one, features_two, name_one, name_two)
         else:
-            return self.delayed(train_features, valid_features, train_name, valid_name, self.params)
+            return self.delayed(features_one, features_two, name_one, name_two, self.params)
 
     def prepare_dtw(self, config):
         return delayed(exec_dtw)
@@ -31,42 +31,42 @@ class DTW:
         return delayed(exec_dtwalign)
 
 
-def exec_dtw(train_features, valid_features, train_name, valid_name):
+def exec_dtw(features_one, features_two, name_one, name_two):
     d = None
     try:
-        d, cost_matrix, acc_cost_matrix, path = dtw.accelerated_dtw(train_features, valid_features, dist='euclidean')
+        d, cost_matrix, acc_cost_matrix, path = dtw.accelerated_dtw(features_one, features_two, dist='euclidean')
     except Exception as e:
-        logger.warning('no alignment path for "{}" and "{}"'.format(train_name, valid_name))
+        logger.warning('no alignment path for "{}" and "{}"'.format(name_one, name_two))
         logger.error(e)
-    return d
+    return name_one, name_two, d
 
 
-def exec_fastdtw(train_features, valid_features, train_name, valid_name, params):
+def exec_fastdtw(features_one, features_two, name_one, name_two, params):
     d = None
 
     try:
-        d, path = fastdtw.fastdtw(train_features, valid_features, dist=euclidean, **params)
+        d, path = fastdtw.fastdtw(features_one, features_two, dist=euclidean, **params)
     except Exception as e:
-        logger.warning('no alignment path for "{}" and "{}"'.format(train_name, valid_name))
+        logger.warning('no alignment path for "{}" and "{}"'.format(name_one, name_two))
         logger.error(e)
-    return d
+    return name_one, name_two, d
 
 
-def exec_dtwalign(train_features, valid_features, train_name, valid_name, params):
+def exec_dtwalign(features_one, features_two, name_one, name_two, params):
     distance = None
 
     try:
         result = dtwalign.dtw(
-            train_features
-            , valid_features
+            features_one
+            , features_two
             , dist_only=True
             , **params
         )
         distance = result.distance
     except ValueError:
-        logger.warning('no alignment path for "{}" and "{}"'.format(train_name, valid_name))
+        logger.warning('no alignment path for "{}" and "{}"'.format(name_one, name_two))
     except Exception as e:
-        logger.warning('no alignment path for "{}" and "{}"'.format(train_name, valid_name))
+        logger.warning('no alignment path for "{}" and "{}"'.format(name_one, name_two))
         logger.error(e)
 
-    return distance
+    return name_one, name_two, distance

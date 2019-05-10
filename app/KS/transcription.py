@@ -39,12 +39,12 @@ class Transcription:
         return None
 
     def prepare_transcription(self, transcription):
-        # transcription = cleanup.sub('', transcription.strip())
+        # transcription = cleanup.sub('', transcription.strip().lower())
         transcription = transcription.strip().lower()
         return transcription
 
-    def get_tasks(self):
-        f = open('../data/ks/task/keywords.txt', 'r')
+    def get_tasks(self, path='../data/ks/task/keywords.txt'):
+        f = open(path, 'r')
         words = f.readlines()
         f.close()
         tasks = []
@@ -54,15 +54,18 @@ class Transcription:
             transcription = self.prepare_transcription(transcription)
             if transcription not in transcription_dict:
                 transcription_dict[transcription] = 1
-                tasks.append(Task(transcription, self.get_name_for_transcription(transcription, False)))
+                tasks.append(Task(transcription))
 
         return tasks
 
 
 class Task:
-    __slots__ = ('name', 'transcription')
+    __slots__ = ('transcription', 'selected')
 
-    def __init__(self, transcription, name) -> None:
+    def __init__(self, transcription) -> None:
         self.transcription = transcription
-        self.name = name
+        self.selected = {}
+
+    def add_selected(self, name, distance):
+        self.selected[name] = distance
 

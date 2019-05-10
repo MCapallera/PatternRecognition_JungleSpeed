@@ -1,5 +1,6 @@
 import logging
 
+from KS.evaluate import Evaluate
 from KS.train import DtwTrain
 from KS.validate import DtwValidate
 from KS.image.features import ImageFeaturesJob
@@ -51,6 +52,7 @@ job_registry = {
     , 'NormalizeHeight': NormalizeHeight
     , 'DtwTrain': DtwTrain
     , 'DtwValidate': DtwValidate
+    , 'Evaluate': Evaluate
     , 'ImageFeatures': ImageFeaturesJob
 }  # Dict[str, object]
 

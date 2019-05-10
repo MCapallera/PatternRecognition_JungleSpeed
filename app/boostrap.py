@@ -1,6 +1,8 @@
 import argparse, logging, pathlib, util.path, datetime
 from logging import Formatter
 from logging.handlers import TimedRotatingFileHandler
+
+from KS.service import update_log_dir
 from config import get_config_for, config
 
 
@@ -49,5 +51,6 @@ class Bootstrap:
             file_handler.setFormatter(Formatter('%(asctime)s %(levelname)-8s %(name)s %(message)s', '%Y-%m-%d %H:%M:%S'))
             file_handler.setLevel(log_level)
             logger.addHandler(file_handler)
+            update_log_dir(log_dir)
         else:
             logging.basicConfig(level=log_level, format='%(asctime)s %(levelname)-8s %(name)s %(message)s', datefmt='%Y-%m-%d %H:%M:%S')

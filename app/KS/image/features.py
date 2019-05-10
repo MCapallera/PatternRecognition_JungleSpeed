@@ -5,6 +5,7 @@ from skimage.io import imread
 from KS.job.io.input import InputDir
 from KS.job.io.output import OutputData
 from KS.job.job import Job
+from KS.service import get_log_path
 from config import get_config_for, ConfigContainer
 
 
@@ -33,11 +34,11 @@ class ImageFeatures:
 class ImageFeaturesJob(Job):
     def __init__(self, name: str):
         super().__init__(name)
-        config = get_config_for('job_' + name)
-        self.params = config.as_dict()
+        self.config = get_config_for('job_' + name)
+        self.params = self.config.as_dict()
         self.params['job_name'] = name
         self.output.init(self.params)
-        self.features = ImageFeatures(config)
+        self.features = ImageFeatures(self.config)
 
     def run(self, data):
         params = {**self.params, **data.params}
@@ -57,7 +58,7 @@ class ImageFeaturesJob(Job):
         self.output.next(params)
 
     def store_features(self, result):
-        with open(self.params['output_path'], 'w', newline='') as csvfile:
+        with open(self.config.get('output_path', get_log_path('features.csv')), 'w', newline='') as csvfile:
             writer = csv.writer(csvfile, dialect='excel', quoting=csv.QUOTE_NONNUMERIC)
             for name, features in result.items():
                 writer.writerow([name, ' '.join([repr(num) for num in features])])

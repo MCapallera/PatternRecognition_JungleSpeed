@@ -135,13 +135,15 @@ class NormalizeHeight(Job):
     def run(self, data):
         params = {**self.params, **data.params}
         heights = []
+        images = []
         for item in self.input.get_input(params):
-            heights.append(Image.open(item['input_path'], 'r').height)
+            image = Image.open(item['input_path'], 'r')
+            heights.append(image.height)
+            images.append((image, item['output_path']))
 
-        height = numpy.mean(heights)
-        for item in self.input.get_input(params):
-            img = Image.open(item['input_path'], 'r')
-            img = img.resize((int(img.width*(height/img.height)), int(height)), Image.LANCZOS)
-            img.save(item['output_path'])
+        height = int(numpy.mean(heights))
+        for image, output_path in images:
+            image = image.resize((int(image.width*(height/image.height)), height), Image.LANCZOS)
+            image.save(output_path)
 
         self.output.next(params)

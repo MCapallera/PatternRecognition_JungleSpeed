@@ -12,3 +12,10 @@ def dynamic_cast(dict):
         if isinstance(value, str) and not is_string.match(value):
             dict[key] = ast.literal_eval(value)
     return dict
+
+
+def create_and_set(data, key, sub_key, value):
+    if key in data:
+        data[key][sub_key] = value
+    else:
+        data[key] = {sub_key: value}
