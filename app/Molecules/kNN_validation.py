@@ -95,7 +95,7 @@ def runKnn():
     AssignedClasses = []
 
     #choose number of nearest neighbours
-    k = 10
+    k = 7
 
     getLabels_train()
     getLabels_valid()
@@ -110,16 +110,17 @@ def runKnn():
         prediction = predict(neighbors)
         print("Prediction for molcule n°" + str(i) + " is : " + str(prediction))
         AssignedClasses.append([i, prediction])
-        exportResults(i, prediction)
+        exportResults(k, i, prediction)
         #print(AssignedClasses)
     accuracy = Accuracy(AssignedClasses)
     print(repr(k) + '-NN Accuracy: ' + repr(accuracy) + '%')
 
-def exportResults(id, prediction):
-    results_file = cwd + '\\' + os.path.pardir + '\\' + os.path.pardir + '\\' + "results\MoleculesClassification\\output.txt"
+def exportResults(k, id, prediction):
+    results_folder = cwd + '\\' + os.path.pardir + '\\' + os.path.pardir + '\\' + "results\MoleculesClassification\\"
+    results_file = os.path.join(results_folder, "output_" + str(k) + "-NN.txt")
     if not os.path.isfile(results_file):
         file = open(results_file, 'w+')
-        file.write(id + "," + prediction + "\n")
+        file.write(str(id) + "," + str(prediction) + "\n")
     else:
         with open(results_file, 'a') as file:
             file.write(str(id) + "," + str(prediction) + "\n")
