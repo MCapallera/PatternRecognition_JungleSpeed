@@ -1,0 +1,589 @@
+2019-05-17 14:17:12 INFO     KS load config:
+[main]
+name=base
+log_to_file=1
+
+[jobs]
+#items=crop,binarize,cropWhite,normalizeHeight,featureSelection,train,validate,evaluation
+items=featureSelection,train,validate,evaluation
+
+[job_crop]
+input_directory=../data/ks/images/
+function=crop
+svg_dir=../data/ks/ground-truth/locations/
+apply_polygon_mask=1
+
+[job_binarize]
+function=binarize
+method=yen
+otsu_nbins=256
+local_block_size=71
+keep_foreground=0
+
+[job_cropWhite]
+function=crop_white
+keep_height=1
+width_offset=3
+crop_input_directory=../data/ks/job/crop/
+
+[job_normalizeHeight]
+type=NormalizeHeight
+
+[job_deskew]
+function=deskew
+
+[job_featureSelection]
+input_directory=../data/ks/job/normalizeHeight/
+type=ImageFeatures
+orientations=20
+pixels_per_cell=48,48
+cells_per_block=2,2
+adapt_pixels_per_cell=1
+
+[job_train]
+type=DtwTrain
+lib=dtwalign
+window_type=sakoechiba
+window_size=1000
+
+[job_validate]
+type=DtwValidate
+lib=dtwalign
+window_type=sakoechiba
+window_size=1000
+
+[job_evaluation]
+type=Evaluate
+2019-05-17 14:17:12 INFO     KS.job.jobs run job featureSelection
+2019-05-17 14:17:23 INFO     KS.job.jobs run job train
+2019-05-17 15:00:30 INFO     KS.job.jobs run job validate
+2019-05-17 15:11:35 INFO     KS.job.jobs run job evaluation
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ a-l-e-x-a-n-d-r-i-a
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ c-a-p-t-a-i-n
+2019-05-17 15:11:35 INFO     KS.evaluate same: 5, selected_right: 0, selected_wrong: 648
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.49497293116782676
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ c-l-o-t-h-e-s
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 300
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.7679814385150812
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ c-l-o-t-h-i-n-g
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 296
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.7710750193348801
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ c-o-l-o-n-e-l
+2019-05-17 15:11:35 INFO     KS.evaluate same: 2, selected_right: 0, selected_wrong: 1
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9976798143851509
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ c-o-m-m-i-s_s-s-a-r-y
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 2
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9984532095901005
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ c-o-u-r-t
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ c-u-m-b-e-r-l-a-n-d
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 1, selected_wrong: 135
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.007352941176470588
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.8955916473317865
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ d-i-c-k
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ d-o-c-t-o-r
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ e-n-s-i-g-n
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 23
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9822119102861562
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ f-o-r-t
+2019-05-17 15:11:35 INFO     KS.evaluate same: 2, selected_right: 0, selected_wrong: 368
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.7138437741686001
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ f-o-r-t-s_pt
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ f-r-e-d-e-r-i-c-k-s-b-u-r-g-h-s_cm
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ g-e-o-r-g-e
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ g-u-a-r-d
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 577
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.5537509667440061
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ i-n-s-t-r-u-c-t-i-o-n-s-s_pt
+2019-05-17 15:11:35 INFO     KS.evaluate same: 4, selected_right: 1, selected_wrong: 325
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.25
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.003067484662576687
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.7463263727764888
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ j-o-h-n
+2019-05-17 15:11:35 INFO     KS.evaluate same: 3, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9976798143851509
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ l-e-t-t-e-r-s
+2019-05-17 15:11:35 INFO     KS.evaluate same: 6, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9953596287703016
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ l-i-e-u-t-e-n-a-n-t
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 378
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.7076566125290024
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ m-a-j-o-r
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 1, selected_wrong: 526
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0018975332068311196
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.5931941221964424
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ m-r-s_pt
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 1
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9984532095901005
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ o-f-f-i-c-e-r-s
+2019-05-17 15:11:35 INFO     KS.evaluate same: 3, selected_right: 0, selected_wrong: 1
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9969064191802011
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ o-r-d-e-r
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 1, selected_wrong: 2
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.3333333333333333
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9984532095901005
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ o-r-d-e-r-s
+2019-05-17 15:11:35 INFO     KS.evaluate same: 6, selected_right: 5, selected_wrong: 666
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.8333333333333334
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.007451564828614009
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.48414539829853054
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ o-r-d-e-r-s-s_pt
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ p-a-r-o-l-e
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ r-e-c-r-u-i-t-s
+2019-05-17 15:11:35 INFO     KS.evaluate same: 2, selected_right: 0, selected_wrong: 1
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9976798143851509
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ r-e-g-i-m-e-n-t
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9992266047950503
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ r-e-g-i-m-e-n-t-s_pt
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 457
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.6465583913379737
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ r-e-n-d-e-z-v-o-u-s
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ r-e-t-u-r-n
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 181
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.8592420726991493
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ r-o-b-e-r-t
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9992266047950503
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ s-a-l-t
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ s-e-r-g-e-a-n-t
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 137
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.8940448569218871
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ s-e-r-g-e-a-n-t-s_cm
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 311
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.7594740912606341
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ s-h-i-r-t-s-s_cm
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ s-o-l-d-i-e-r-s
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ s-t-e-w-a-r-t-s_cm
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ s-t-o-r-e-s
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ s-u-i-t-s
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ v-i-r-g-i-n-i-a
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 300
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.7672080433101315
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ w-a-g-g-o-n-s
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 441
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.6589327146171694
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ w-a-s-h-i-n-g-t-o-n-s_cm
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ w-i-n-c-h-e-s-t-e-r
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 60
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9535962877030162
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ w-i-n-c-h-e-s-t-e-r-s_cm
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 8
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9938128383604021
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ w-i-n-c-h-e-s-t-e-r-s_qo
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ a-b-s-o-l-u-t-e-l-y
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ a-r-r-i-v-e
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 605
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.5320959010054138
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ a-r-r-i-v-e-s_cm
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ a-t-e-l-y
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 408
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.6844547563805105
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ c-a-m-p-s_pt
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ c-a-r-e
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ c-a-r-e-f-u-l
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 843
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.34725444702242847
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ c-a-r-r-y
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 86
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9334880123743233
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ d-a-y
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 2
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9976798143851509
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ d-e
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 6
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9945862335653519
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ d-e-l-i-v-e-r
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 166
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.871616395978345
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ d-e-l-i-v-e-r-e-d
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 9
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9930394431554525
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ d-e-s-e-r-t
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ d-i-r-e-c-t-i-o-n-s
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ d-i-s-p-a-t-c-h
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ e-n-g-a-g-e-d
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ e-n-l-i-s-t-e-d
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ e-n-t-e-r
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 2
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9984532095901005
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ e-s-c-o-r-t
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ f-u-r-n-i-s-h
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ g-r-e-a-t-l-y
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9992266047950503
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ h-u-n-d-r-e-d
+2019-05-17 15:11:35 INFO     KS.evaluate same: 2, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9984532095901005
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ i-m-m-e-d-i-a-t-e-l-y
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ j-o-i-n
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 70
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.945862335653519
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ l-e-f-t
+2019-05-17 15:11:35 INFO     KS.evaluate same: 2, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9984532095901005
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ m-a-d-e
+2019-05-17 15:11:35 INFO     KS.evaluate same: 2, selected_right: 0, selected_wrong: 67
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9466357308584686
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ m-a-k-e
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ m-a-r-c-h
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 1
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9992266047950503
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ m-a-r-c-h-s_cm
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ m-e-d-i-a-t-e-l-y
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ m-e-n
+2019-05-17 15:11:35 INFO     KS.evaluate same: 3, selected_right: 1, selected_wrong: 252
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.3333333333333333
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.003952569169960474
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.8035576179427688
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ m-e-n-s_cm
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 100
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.922660479505027
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ n-u-m-b-e-r
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ o-p-p-o-r-t-u-n-i-t-y
+2019-05-17 15:11:35 INFO     KS.evaluate same: 2, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9984532095901005
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ o-r-d-e-r-e-d
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 4
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9961330239752514
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ p-a-y
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 19
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9853054911059551
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ p-l-a-c-e
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9992266047950503
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ p-o-u-n-d-s
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ p-r-o-v-i-d-e
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 3
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9976798143851509
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ p-r-o-v-i-s-i-o-n-s-s_cm
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 753
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.4176334106728538
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ p-u-r-c-h-a-s-e
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ q-u-a-n-t-i-t-y
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 38
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9706109822119103
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ r-e-c-e-i-p-t
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ r-e-c-e-i-v-e
+2019-05-17 15:11:35 INFO     KS.evaluate same: 2, selected_right: 0, selected_wrong: 116
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.908739365815932
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ r-e-c-e-i-v-e-d
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ r-e-m-a-i-n
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ r-e-p-a-i-r
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ s-e-n-d
+2019-05-17 15:11:35 INFO     KS.evaluate same: 2, selected_right: 1, selected_wrong: 772
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.5
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.00129366106080207
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.40216550657385924
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ s_gw
+2019-05-17 15:11:35 INFO     KS.evaluate same: 2, selected_right: 2, selected_wrong: 7
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.2222222222222222
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9945862335653519
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ s_et-c-s_pt
+2019-05-17 15:11:35 INFO     KS.evaluate same: 5, selected_right: 2, selected_wrong: 19
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.4
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.09523809523809523
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.982985305491106
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ t-e-r-m-s
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ t-h-i-n-g-s
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9992266047950503
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ t-w-e-l-v-e
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 51
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9597834493426141
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ u-n-f-i-t
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ u-t-m-o-s-t
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ w-a-g-g-o-n-s-s_cm
+2019-05-17 15:11:35 INFO     KS.evaluate same: 0, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 1
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 1
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 1.0
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ w-a-n-t-e-d
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9992266047950503
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ w-a-n-t-i-n-g
+2019-05-17 15:11:35 INFO     KS.evaluate same: 1, selected_right: 0, selected_wrong: 0
+2019-05-17 15:11:35 INFO     KS.evaluate recall: 0.0
+2019-05-17 15:11:35 INFO     KS.evaluate precision: 0
+2019-05-17 15:11:35 INFO     KS.evaluate accuracy: 0.9992266047950503
+2019-05-17 15:11:35 INFO     KS.evaluate -------[ summarize
+2019-05-17 15:11:35 INFO     KS.evaluate mean recall: 0.7173015873015872
+2019-05-17 15:11:35 INFO     KS.evaluate mean precision: 0.4254838990942753
+2019-05-17 15:11:35 INFO     KS.evaluate mean accuracy: 0.9219091813059331

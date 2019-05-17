@@ -1,5 +1,4 @@
-import logging, numpy, math
-from KS import service
+import logging, numpy
 
 logger = logging.getLogger(__name__)
 
@@ -25,21 +24,26 @@ class Cluster:
 
         train_features = dict(list(self.get_train_features()))
 
-        same_results = []
-        differ_results = []
+        center_names = {}
         for name, features in train_features.items():
             if name not in result_tree:
                 continue
 
+            distance_sum = 0
             results = result_tree[name]
-            service.get_transcription_provider()
             for n, result in results.items():
                 if n in train_features:
-                    same_results.append(result)
-                else:
-                    differ_results.append(result)
+                    distance_sum += result
+            center_names[name] = distance_sum
 
-            break  # finish after first item, because all comparison are in the sub object
+        same_results = []
+        differ_results = []
+        results = result_tree[min(center_names, key=center_names.get)]
+        for n, result in results.items():
+            if n in train_features:
+                same_results.append(result)
+            else:
+                differ_results.append(result)
 
         self.compute_stats(same_results, differ_results)
 

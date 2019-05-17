@@ -34,6 +34,7 @@ class Evaluate(Job):
         validation_names_length = len(validation_names)
         recalls = []
         precisions = []
+        accuracies = []
         for task in results:
             same = 0
             selected_right = 0
@@ -59,12 +60,14 @@ class Evaluate(Job):
             precision = selected_right / selected if selected != 0 else int(same == 0)
             logger.info('precision: {}'.format(precision))
 
-            accuracy = validation_names_length - (selected_wrong + (same - selected_right)) / validation_names_length
+            accuracy = (validation_names_length - (selected_wrong + (same - selected_right))) / validation_names_length
             logger.info('accuracy: {}'.format(accuracy))
 
             recalls.append(recall)
             precisions.append(precision)
+            accuracies.append(accuracy)
 
         logger.info('-------[ summarize')
         logger.info('mean recall: {}'.format(numpy.mean(recalls)))
         logger.info('mean precision: {}'.format(numpy.mean(precisions)))
+        logger.info('mean accuracy: {}'.format(numpy.mean(accuracies)))
