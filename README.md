@@ -48,13 +48,13 @@ For the `crop` function you need to define some additional properties.
 # Molecule classification task
 The purpose of this task is to be able to tell if a molecule is active or inactive based on the provided training data, wich are graphs of molecules and their repective label (i or a).
 
-The implementation of the classification process can be found under app/Molecules
-The graphs (gxl files) and the labels for the training and validation sets can be found under data/MoleculesClassification
+The implementation of the classification process can be found under `app/Molecules`
+The graphs (gxl files) and the labels for the training and validation sets can be found under `data/MoleculesClassification`
 
-You can call the molecules classification app with the script kNN_validation.py.
-This script is using several algorithms to compute the approximate Graph Edit Distance (GED) between each pair of graphs. These algorithms are implmented under app/Molecules/algorithm
+You can call the molecules classification app with the script `kNN_validation.py`.
+This script is using several algorithms to compute the approximate Graph Edit Distance (GED) between each pair of graphs. These algorithms are implmented under `app/Molecules/algorithm`.
 
-The output of the task is the accuracy of the kNN algorithm (printed in the console) and also a text file with the predicted class for each molecule of the validation set. This file can be found under results/MoleculesClassification.
+The output of the task is the accuracy of the kNN algorithm (printed in the console) and also a text file with the predicted class for each molecule of the validation set. This file can be found under `results/MoleculesClassification`.
 
 
 
