@@ -5,7 +5,7 @@ from skimage.io import imread
 from KS.job.io.input import InputDir
 from KS.job.io.output import OutputData
 from KS.job.job import Job
-from KS.service import get_log_path
+from KS.service import get_log_path, get_test_features
 from config import get_config_for, ConfigContainer
 
 
@@ -53,6 +53,7 @@ class ImageFeaturesJob(Job):
 
             # if i > 100: break
 
+        get_test_features.image_features_dict = {n: features for n, features in result.items() if int(n[0:3]) > 304}
         self.store_features(result)
         params['result'] = result
         self.output.next(params)

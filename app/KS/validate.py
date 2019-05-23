@@ -26,15 +26,14 @@ class DtwValidate(Job):
 
     def run(self, data):
         params = data.params
+        run_test = self.config.getint('run_test', 0) == 1
+
         cluster_dict = self.input.get_input(params)
         transcription = service.get_transcription_provider()
-        valid_features_set = {}
-        for cluster_transcription, cluster in cluster_dict.items():
-            for name, features in cluster.get_validation_features():
-                valid_features_set[name] = features
+        valid_features_set = self.get_test_features() if run_test else self.get_validation_features(cluster_dict)
 
         fns = []
-        tasks = transcription.get_tasks()
+        tasks = transcription.get_tasks('../data/ks/task/keywords_test.txt' if run_test else '../data/ks/task/keywords.txt')
         valid_features_set_items = valid_features_set.items()
         for task in tasks:
             if task.transcription not in cluster_dict:
@@ -79,3 +78,13 @@ class DtwValidate(Job):
 
         params['result'] = tasks
         self.output.next(params)
+
+    def get_validation_features(self, cluster_dict):
+        valid_features_set = {}
+        for cluster_transcription, cluster in cluster_dict.items():
+            for name, features in cluster.get_validation_features():
+                valid_features_set[name] = features
+        return valid_features_set
+
+    def get_test_features(self):
+        return service.get_test_features()

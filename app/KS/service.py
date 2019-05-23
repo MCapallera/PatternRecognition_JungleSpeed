@@ -17,6 +17,10 @@ def get_parallel():
     return get_parallel.instance
 
 
+def get_test_features():
+    return get_test_features.image_features_dict
+
+
 def update_log_dir(path):
     get_log_path.path = path
 

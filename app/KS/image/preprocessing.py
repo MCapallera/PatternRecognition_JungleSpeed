@@ -45,7 +45,7 @@ def crop_white(params):
         image = Image.open(join(os.path.abspath(params['crop_input_directory']), params['filename']), 'r')
 
     if bbox:
-        if params['keep_height']:
+        if params['keep_height'] == '1':
             bbox = (bbox[0], 0, bbox[2], image.height)
 
         if params['width_offset'] != '0':
@@ -141,7 +141,10 @@ class NormalizeHeight(Job):
             heights.append(image.height)
             images.append((image, item['output_path']))
 
-        height = int(numpy.mean(heights))
+        height = numpy.mean(heights) if params['height'] == 'mean' else int(params['height'])
+        # print(heights)
+        # print(numpy.mean(heights))
+        # print(numpy.median(heights))
         for image, output_path in images:
             image = image.resize((int(image.width*(height/image.height)), height), Image.LANCZOS)
             image.save(output_path)
