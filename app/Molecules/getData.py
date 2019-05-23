@@ -5,19 +5,28 @@ import os
 import xml.etree.ElementTree as ET
 import networkx as nx
 
+graphs_dict_test = {}
 graphs_dict = {}
 
 cwd = os.getcwd()
-graphes_folder = cwd + '\\' + os.path.pardir + '\\' + os.path.pardir + '\\' + "data\MoleculesClassification\gxl\\"
-
+graphes_test = cwd + '\\' + os.path.pardir + '\\' + os.path.pardir + '\\' + "data\MoleculesClassification\\test\\gxl\\"
+graphes_train = cwd + '\\' + os.path.pardir + '\\' + os.path.pardir + '\\' + "data\MoleculesClassification\\gxl\\"
 
 def get_graphs():
-    for file in os.listdir(graphes_folder):
+    for file in os.listdir(graphes_train):
         molecule_id = file[:-4]
-        new_graph = create_graph(os.path.join(graphes_folder, file))
+        new_graph = create_graph(os.path.join(graphes_train, file))
         graphs_dict[molecule_id] = new_graph
-
+    #print(graphs_dict)
     return graphs_dict
+
+def get_graphs_test():
+    for file in os.listdir(graphes_test):
+        molecule_id = file[:-4]
+        new_graph = create_graph(os.path.join(graphes_test, file))
+        graphs_dict_test[molecule_id] = new_graph
+    #print(graphs_dict_test)
+    return graphs_dict_test
 
 def create_graph(filename):
 

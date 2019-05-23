@@ -54,7 +54,7 @@ The graphs (gxl files) and the labels for the training and validation sets can b
 You can call the molecules classification app with the script `kNN_validation.py`.
 This script is using several algorithms to compute the approximate Graph Edit Distance (GED) between each pair of graphs. These algorithms are implmented under `app/Molecules/algorithm`.
 
-The output of the task is the accuracy of the kNN algorithm (printed in the console) and also a text file with the predicted class for each molecule of the validation set. This file can be found under `results/MoleculesClassification`.
+The output of the task is the accuracy of the kNN algorithm (printed in the console) and also a text file with the predicted class for each molecule of the validation set. This file can be found under `results/MoleculesClassification/output_7-NN_test.txt`.
 
 
 
