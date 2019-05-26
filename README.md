@@ -3,7 +3,7 @@ The app folder contains the models we used for the different tasks
 
 The report folder contains the reports for the exercices, one report per task with the results in it (% accuracy, loss...)
 
-The results folder contains the results of each task
+The results folder contains the results of each task, final report is also available in this folder: Pattern_Recognition___Final_Report.pdf
 
 # Keyword spotting task
 Create a profile under data/ks/profile (have a look at base.cfg).
